@@ -45,34 +45,24 @@ const router = createRouter({
 					component: () => import('@/views/Dashboard.vue')
 				},
 				{
-					path: '/cadastro/meus-dados',
-					name: 'meusdados',
-					component: () => import('@/views/cadastro/MeusDados.vue')
+					path: '/cadastro',
+					name: 'cadastro',
+					component: () => import('@/views/geral/Cadastro.vue')
 				},
 				{
-					path: '/atendimento/meus-atendimentos',
-					name: 'meusatendimentos',
-					component: () => import('@/views/atendimento/MeusAtendimentos.vue')
+					path: '/atendimento',
+					name: 'atendimento',
+					component: () => import('@/views/geral/Atendimento.vue')
 				},
 				{
-					path: '/atendimento/novo-atendimento',
-					name: 'novoatendimento',
-					component: () => import('@/views/atendimento/NovoAtendimento.vue')
+					path: '/cliente',
+					name: 'cliente',
+					component: () => import('@/views/geral/Cliente.vue')
 				},
 				{
-					path: '/atendimento/historico-atendimento',
-					name: 'historicoatendimento',
-					component: () => import('@/views/atendimento/HistoricoAtendimento.vue')
-				},
-				{
-					path: '/cliente/novo-cliente',
-					name: 'novocliente',
-					component: () => import('@/views/cliente/NovoCliente.vue')
-				},
-				{
-					path: '/motivo/novo-motivo',
-					name: 'novomotivo',
-					component: () => import('@/views/motivo/NovoMotivo.vue')
+					path: '/motivo',
+					name: 'motivo',
+					component: () => import('@/views/geral/Motivo.vue')
 				},
 				{
 					path: '/uikit/formlayout',
