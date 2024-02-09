@@ -5,29 +5,33 @@ import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
     {
-        label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' }]
-    },
-    {
-        label: 'Cadastro',
-        items: [{ label: 'Meus Dados', icon: 'pi pi-fw pi-id-card', to: '/cadastro/meus-dados' }]
-    },
-    {
-        label: 'Atendimento',
+        label: 'Geral',
         items: [
-            { label: 'Meus Atendimentos', icon: 'pi pi-fw pi-folder-open', to: '/atendimento/meus-atendimentos' },
-            { label: 'Novo Atendimento', icon: 'pi pi-fw pi-pencil', to: '/atendimento/novo-atendimento' },
-            { label: 'Histórico', icon: 'pi pi-fw pi-sitemap', to: '/atendimento/historico-atendimento' }
+            { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' },
+            { label: 'Cadastro', icon: 'pi pi-fw pi-id-card', to: '/cadastro' },
+            { label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento' },
+            { label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente' },
+            { label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo' }
         ]
     },
-    {
-        label: 'Cliente',
-        items: [{ label: 'Novo Cliente', icon: 'pi pi-fw pi-plus', to: '/cliente/novo-cliente' }]
-    },
-    {
-        label: 'Motivo',
-        items: [{ label: 'Novo Motivo', icon: 'pi pi-fw pi-database', to: '/motivo/novo-motivo' }]
-    },
+    // {
+    //     label: 'Cadastro',
+    //     items: [{ label: 'Meus Dados', icon: 'pi pi-fw pi-id-card', to: '/cadastro/meus-dados' }]
+    // },
+    // {
+    //     label: 'Atendimento',
+    //     items: [
+    //         { label: 'Gerir Atendimentos', icon: 'pi pi-fw pi-folder-open', to: '/atendimento/gerir-atendimento' }
+    //     ]
+    // },
+    // {
+    //     label: 'Cliente',
+    //     items: [{ label: 'Gerir Cliente', icon: 'pi pi-fw pi-users', to: '/cliente/gerir-cliente' }]
+    // },
+    // {
+    //     label: 'Motivo',
+    //     items: [{ label: 'Gerir Motivo', icon: 'pi pi-fw pi-database', to: '/motivo/gerir-motivo' }]
+    // },
     {
         label: 'UI Components',
         items: [

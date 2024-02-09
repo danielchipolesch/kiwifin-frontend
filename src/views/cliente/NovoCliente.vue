@@ -1,3 +1,0 @@
-<template>
-    <h1>Novo Cliente</h1>
-</template>

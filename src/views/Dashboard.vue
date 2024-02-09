@@ -7,7 +7,7 @@ const { isDarkTheme } = useLayout();
 
 const products = ref(null);
 const lineData = reactive({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
     datasets: [
         {
             label: 'First Dataset',
