@@ -47,22 +47,22 @@ const router = createRouter({
 				{
 					path: '/cadastro',
 					name: 'cadastro',
-					component: () => import('@/views/Cadastro.vue')
+					component: () => import('@/views/geral/Cadastro.vue')
 				},
 				{
 					path: '/atendimento',
 					name: 'atendimento',
-					component: () => import('@/views/Atendimento.vue')
+					component: () => import('@/views/geral/Atendimento.vue')
 				},
 				{
 					path: '/cliente',
 					name: 'cliente',
-					component: () => import('@/views/Cliente.vue')
+					component: () => import('@/views/geral/Cliente.vue')
 				},
 				{
 					path: '/motivo',
 					name: 'motivo',
-					component: () => import('@/views/Motivo.vue')
+					component: () => import('@/views/geral/Motivo.vue')
 				},
 				{
 					path: '/uikit/formlayout',
