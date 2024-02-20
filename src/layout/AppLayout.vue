@@ -31,6 +31,7 @@ const containerClass = computed(() => {
         'p-ripple-disabled': !layoutConfig.ripple.value
     };
 });
+
 const bindOutsideClickListener = () => {
     if (!outsideClickListener.value) {
         outsideClickListener.value = (event) => {
