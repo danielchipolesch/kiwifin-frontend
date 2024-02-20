@@ -71,7 +71,7 @@ onMounted(() => {
 			</div>
 		</template>
 	</Toolbar>
-	<div class="surface-card p-4 shadow-2 border-round mb-5">
+	<div class="surface-card p-4 shadow-1 border-round mb-5">
 		<!--<div class="text-3xl font-medium text-900 mb-3">Informações Pessoais</div>-->
 		<!--<div class="font-medium text-500 mb-3">Vivamus id nisl interdum, blandit augue sit amet, eleifend mi.</div>-->
 		<div class="grid p-fluid mt-3">
@@ -145,7 +145,7 @@ onMounted(() => {
 			</div>
 		</template>
 	</Toolbar>
-	<div class="surface-card p-4 shadow-2 border-round">
+	<div class="surface-card p-4 shadow-1 border-round">
 		<!--<div class="text-3xl font-medium text-900 mb-3">Senha de Acesso</div>-->
 		<!--<div class="font-medium text-500 mb-3">Vivamus id nisl interdum, blandit augue sit amet, eleifend mi.</div>-->
 		<div class="grid p-fluid mt-3">
