@@ -1,7 +1,7 @@
 <script setup>
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount } from 'vue';
-import ProductService from '@/service/ProductService';
+import AtendimentoService from '@/service/AtendimentoService';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
@@ -21,13 +21,13 @@ const statuses = ref([
 	{ label: 'OUTOFSTOCK', value: 'outofstock' }
 ]);
 
-const productService = new ProductService();
+const atendimentoService = new AtendimentoService();
 
 onBeforeMount(() => {
 	initFilters();
 });
 onMounted(() => {
-	productService.getProducts().then((data) => (products.value = data));
+	atendimentoService.getProducts().then((data) => (products.value = data));
 });
 const formatCurrency = (value) => {
 	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
