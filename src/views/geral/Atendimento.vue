@@ -217,6 +217,7 @@ const initFilters = () => {
 					</Column>
 					<Column headerStyle="width:14%; min-width:10rem;">
 						<template #body="slotProps">
+							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editProduct(slotProps.data)" />
 							<Button icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-info mr-2" @click="editProduct(slotProps.data)" />
 							<Button icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-warning mr-2" @click="editProduct(slotProps.data)" />
 							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmDeleteProduct(slotProps.data)" />
