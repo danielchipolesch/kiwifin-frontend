@@ -27,10 +27,10 @@ onMounted(() => {
             value4.value = resposta[0].email,
             value5.value = resposta[0].celular,
             value6.value = resposta[0].cep,
-            value7.value = resposta[0].endereco,
-            value8.value = resposta[0].complemento,
-            value9.value = resposta[0].cidade,
-            value10.value = resposta[0].uf,
+            value7.value = resposta[0].endereco.toUpperCase(),
+            value8.value = resposta[0].complemento.toUpperCase(),
+            value9.value = resposta[0].cidade.toUpperCase(),
+            value10.value = resposta[0].uf.toUpperCase(),
             value11.value = resposta[0].senha
         })
 });
