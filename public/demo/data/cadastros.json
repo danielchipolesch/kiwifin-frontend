@@ -1,5 +1,17 @@
 {
     "data": [
-        {"chave": "valor"}
+        {
+            "nome": "DANIEL ANGELO CHIPOLESCH DE ALMEIDA",
+            "cpf": "10101010101",
+            "dtNascimento": "1992-01-02",
+            "email": "danielchipolesch@gmail.com",
+            "celular": "(21) 99999-9999",
+            "cep": "21546-001",
+            "endereco": "RUA J, 551",
+            "complemento": "BLOCO X, APTO 121",
+            "cidade": "RIO DE JANEIRO",
+            "uf": "RJ",
+            "senha": "494009d6ad36e1caa1b05e7cc98ab48f"
+        }
     ]
 }

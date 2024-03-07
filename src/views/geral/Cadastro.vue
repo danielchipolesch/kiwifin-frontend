@@ -5,14 +5,36 @@ export default {};
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import AppConfig from '@/layout/AppConfig.vue';
-// import { useLayout } from '@/layout/composables/layout';
-import CountryService from '@/service/CountryService';
+import CadastroService from '@/service/CadastroService';
 
-// const { layoutConfig } = useLayout();
-// const email = ref('');
 const password1 = ref('');
 const password2 = ref('');
 const resposta = ref('');
+
+const cadastroService = new CadastroService();
+
+async function dateFormat(dataOriginal) {
+    let dataParcial = await new Date(dataOriginal);
+    return dataParcial.getDate
+};
+
+onMounted(() => {
+	cadastroService.getCadastro()
+        .then(resposta => {
+            value1.value = resposta[0].nome.toUpperCase(),
+            value2.value = resposta[0].cpf,            
+            value3.value = resposta[0].dtNascimento,
+            value4.value = resposta[0].email,
+            value5.value = resposta[0].celular,
+            value6.value = resposta[0].cep,
+            value7.value = resposta[0].endereco,
+            value8.value = resposta[0].complemento,
+            value9.value = resposta[0].cidade,
+            value10.value = resposta[0].uf,
+            value11.value = resposta[0].senha
+        })
+});
+
 
 watch(password1, password2, () => {
 	if (password1.value !== password2.value) {
@@ -22,17 +44,8 @@ watch(password1, password2, () => {
 	}
 });
 
-// const checked = ref(false);
 
-const countries = ref([]);
-// const cities = ref([
-//     { name: 'New York', code: 'NY' },
-//     { name: 'Rome', code: 'RM' },
-//     { name: 'London', code: 'LDN' },
-//     { name: 'Istanbul', code: 'IST' },
-//     { name: 'Paris', code: 'PRS' }
-// ]);
-// const filteredCountries = ref(null);
+const data = ref(null);
 const value1 = ref(null);
 const value2 = ref(null);
 const value3 = ref(null);
@@ -43,24 +56,8 @@ const value7 = ref(null);
 const value8 = ref(null);
 const value9 = ref(null);
 const value10 = ref(null);
-const countryService = new CountryService();
+const value11 = ref(null);
 
-onMounted(() => {
-	countryService.getCountries().then((data) => (countries.value = data));
-});
-
-// const searchCountry = (event) => {
-//     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-//     const filtered = [];
-//     const query = event.query;
-//     for (let i = 0; i < countries.value.length; i++) {
-//         const country = countries.value[i];
-//         if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//             filtered.push(country);
-//         }
-//     }
-//     filteredCountries.value = filtered;
-// };
 </script>
 
 <template>
@@ -72,8 +69,6 @@ onMounted(() => {
 		</template>
 	</Toolbar>
 	<div class="surface-card p-4 shadow-1 border-round mb-5">
-		<!--<div class="text-3xl font-medium text-900 mb-3">Informações Pessoais</div>-->
-		<!--<div class="font-medium text-500 mb-3">Vivamus id nisl interdum, blandit augue sit amet, eleifend mi.</div>-->
 		<div class="grid p-fluid mt-3">
 			<div class="field col-12 md:col-6">
 				<span class="p-float-label">
@@ -111,28 +106,28 @@ onMounted(() => {
 					<label for="cep">CEP</label>
 				</span>
 			</div>
-			<div class="field col-12 md:col-5">
+            <div class="field col-12 md:col-4">
 				<span class="p-float-label">
-					<InputText type="text" id="cidade" v-model="value7" />
-					<label for="cidade">Cidade</label>
-				</span>
-			</div>
-			<div class="field col-12 md:col-1">
-				<span class="p-float-label">
-					<InputText type="text" id="uf" v-model="value8" />
-					<label for="uf">UF</label>
-				</span>
-			</div>
-			<div class="field col-12 md:col-4">
-				<span class="p-float-label">
-					<InputText type="text" id="endereco" v-model="value9" />
+					<InputText type="text" id="endereco" v-model="value7" />
 					<label for="endereco">Endereço</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-2">
 				<span class="p-float-label">
-					<InputText type="text" id="complemento" v-model="value10" />
+					<InputText type="text" id="complemento" v-model="value8" />
 					<label for="complemento">Complemento</label>
+				</span>
+			</div>
+			<div class="field col-12 md:col-5">
+				<span class="p-float-label">
+					<InputText type="text" id="cidade" v-model="value9" />
+					<label for="cidade">Cidade</label>
+				</span>
+			</div>
+			<div class="field col-12 md:col-1">
+				<span class="p-float-label">
+					<InputText type="text" id="uf" v-model="value10" />
+					<label for="uf">UF</label>
 				</span>
 			</div>
 		</div>
@@ -170,7 +165,6 @@ onMounted(() => {
 				<small>{{ resposta }} Inserir função para validação de senhas</small>
 			</div>
 		</div>
-		<!--<div style="height: 150px" class="border-2 border-dashed surface-border"></div>-->
 	</div>
 
 	<AppConfig simple />
