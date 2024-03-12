@@ -21,17 +21,17 @@ async function dateFormat(dataOriginal) {
 onMounted(() => {
 	cadastroService.getCadastro()
         .then(resposta => {
-            value1.value = resposta[0].nome.toUpperCase(),
-            value2.value = resposta[0].cpf,            
-            value3.value = resposta[0].dtNascimento,
-            value4.value = resposta[0].email,
-            value5.value = resposta[0].celular,
-            value6.value = resposta[0].cep,
-            value7.value = resposta[0].endereco.toUpperCase(),
-            value8.value = resposta[0].complemento.toUpperCase(),
-            value9.value = resposta[0].cidade.toUpperCase(),
-            value10.value = resposta[0].uf.toUpperCase(),
-            value11.value = resposta[0].senha
+            nomePessoa.value = resposta[0].nome.toUpperCase(),
+            cpf.value = resposta[0].cpf,            
+            dataNascimento.value = resposta[0].dtNascimento,
+            email.value = resposta[0].email,
+            celular.value = resposta[0].celular,
+            cep.value = resposta[0].cep,
+            logradouro.value = resposta[0].endereco.toUpperCase(),
+            complemento.value = resposta[0].complemento.toUpperCase(),
+            cidade.value = resposta[0].cidade.toUpperCase(),
+            unidadeFederativa.value = resposta[0].uf.toUpperCase(),
+            senhaAtual.value = resposta[0].senha
         })
 });
 
@@ -46,17 +46,17 @@ watch(password1, password2, () => {
 
 
 const data = ref(null);
-const value1 = ref(null);
-const value2 = ref(null);
-const value3 = ref(null);
-const value4 = ref(null);
-const value5 = ref(null);
-const value6 = ref(null);
-const value7 = ref(null);
-const value8 = ref(null);
-const value9 = ref(null);
-const value10 = ref(null);
-const value11 = ref(null);
+const nomePessoa = ref(null);
+const cpf = ref(null);
+const dataNascimento = ref(null);
+const email = ref(null);
+const celular = ref(null);
+const cep = ref(null);
+const logradouro = ref(null);
+const complemento = ref(null);
+const cidade = ref(null);
+const unidadeFederativa = ref(null);
+const senhaAtual = ref(null);
 
 </script>
 
@@ -72,61 +72,61 @@ const value11 = ref(null);
 		<div class="grid p-fluid mt-3">
 			<div class="field col-12 md:col-6">
 				<span class="p-float-label">
-					<InputText type="text" id="nome" v-model="value1" />
+					<InputText type="text" id="nome" v-model="nomePessoa" :disabled="true"/>
 					<label for="nome">Nome</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-3">
 				<span class="p-float-label">
-					<InputMask id="cpf" mask="999.999.999-99" v-model="value2"></InputMask>
+					<InputMask id="cpf" mask="999.999.999-99" v-model="cpf" :disabled="true"></InputMask>
 					<label for="cpf">CPF</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-3">
 				<span class="p-float-label">
-					<Calendar inputId="datanascimento" v-model="value3" dateFormat="dd/mm/yy"></Calendar>
+					<Calendar inputId="datanascimento" v-model="dataNascimento" dateFormat="dd/mm/yy" :disabled="true"></Calendar>
 					<label for="datanascimento">Data de Nascimento</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-6">
 				<span class="p-float-label">
-					<InputText type="email" id="email" v-model="value4" />
+					<InputText type="email" id="email" v-model="email" />
 					<label for="email">E-mail</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-3">
 				<span class="p-float-label">
-					<InputMask id="celular" mask="(99) 99999-9999" v-model="value5"></InputMask>
+					<InputMask id="celular" mask="(99) 99999-9999" v-model="celular"></InputMask>
 					<label for="celular">Celular</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-3">
 				<span class="p-float-label">
-					<InputMask id="cep" mask="99999-999" v-model="value6"></InputMask>
+					<InputMask id="cep" mask="99999-999" v-model="cep" :disabled="true"></InputMask>
 					<label for="cep">CEP</label>
 				</span>
 			</div>
             <div class="field col-12 md:col-4">
 				<span class="p-float-label">
-					<InputText type="text" id="endereco" v-model="value7" />
+					<InputText type="text" id="endereco" v-model="logradouro" :disabled="true"/>
 					<label for="endereco">Endereço</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-2">
 				<span class="p-float-label">
-					<InputText type="text" id="complemento" v-model="value8" />
+					<InputText type="text" id="complemento" v-model="complemento" :disabled="true"/>
 					<label for="complemento">Complemento</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-5">
 				<span class="p-float-label">
-					<InputText type="text" id="cidade" v-model="value9" />
+					<InputText type="text" id="cidade" v-model="cidade" :disabled="true"/>
 					<label for="cidade">Cidade</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-1">
 				<span class="p-float-label">
-					<InputText type="text" id="uf" v-model="value10" />
+					<InputText type="text" id="uf" v-model="unidadeFederativa" :disabled="true"/>
 					<label for="uf">UF</label>
 				</span>
 			</div>
@@ -146,7 +146,7 @@ const value11 = ref(null);
 		<div class="grid p-fluid mt-3">
 			<div class="field col-12 md:col-4">
 				<span class="p-float-label">
-					<InputText type="password" id="senhaatual" v-model="value11" />
+					<InputText type="password" id="senhaatual" v-model="senhaAtual" :disabled="true"/>
 					<label for="senhaatual">Senha atual</label>
 				</span>
 			</div>
