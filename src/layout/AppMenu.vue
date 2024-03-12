@@ -8,7 +8,7 @@ const model = ref([
 		label: 'Geral',
 		items: [
 			{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' },
-			{ label: 'Cadastro', icon: 'pi pi-fw pi-id-card', to: '/cadastro' },
+			// { label: 'Cadastro', icon: 'pi pi-fw pi-id-card', to: '/cadastro' },
 			{ label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento' },
 			{ label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente' },
 			{ label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo' }
