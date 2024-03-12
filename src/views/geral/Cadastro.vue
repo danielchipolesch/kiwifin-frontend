@@ -79,7 +79,7 @@ const senhaAtual = ref(null);
 			</div>
 			<div class="field col-12 md:col-3">
 				<span class="p-float-label">
-					<Calendar inputId="datanascimento" v-model="dataNascimento" dateFormat="dd/mm/yy" :disabled="true"></Calendar>
+					<Calendar inputId="datanascimento" v-model="dataNascimento" dateFormat="dd/mm/yy" :disabled="true"/>
 					<label for="datanascimento">Data de Nascimento</label>
 				</span>
 			</div>
