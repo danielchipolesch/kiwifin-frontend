@@ -1,11 +1,11 @@
 export default class ProductService {
-	getProductsSmall() {
+	getAtendimentosSmall() {
 		return fetch('demo/data/atendimentos-small.json')
 			.then((res) => res.json())
 			.then((d) => d.data);
 	}
 
-	getProducts() {
+	getAtendimentos() {
 		return fetch('demo/data/atendimentos.json')
 			.then((res) => res.json())
 			.then((d) => d.data);
