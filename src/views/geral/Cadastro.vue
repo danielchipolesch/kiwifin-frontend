@@ -13,11 +13,6 @@ const resposta = ref('');
 
 const cadastroService = new CadastroService();
 
-async function dateFormat(dataOriginal) {
-    let dataParcial = await new Date(dataOriginal);
-    return dataParcial.getDate
-};
-
 onMounted(() => {
 	cadastroService.getCadastro()
         .then(resposta => {
