@@ -201,7 +201,7 @@ watch(
                     </Column>
                 </DataTable>
             </div>
-            <div class="card">
+            <!-- <div class="card">
                 <div class="flex justify-content-between align-items-center mb-5">
                     <h5>Best Selling Products</h5>
                     <div>
@@ -283,14 +283,14 @@ watch(
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <div class="col-12 xl:col-6">
             <div class="card">
                 <h5>Sales Overview</h5>
                 <Chart type="line" :data="lineData" :options="lineOptions" />
             </div>
-            <div class="card">
+            <!-- <div class="card">
                 <div class="flex align-items-center justify-content-between mb-4">
                     <h5>Notifications</h5>
                     <div>
@@ -339,8 +339,8 @@ watch(
                         </span>
                     </li>
                 </ul>
-            </div>
-            <div
+            </div> -->
+            <!-- <div
                 class="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
                 style="border-radius: 1rem; background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)"
             >
@@ -351,7 +351,7 @@ watch(
                 <div class="mt-4 mr-auto md:mt-0 md:mr-0">
                     <a href="https://www.primefaces.org/primeblocks-vue" class="p-button font-bold px-5 py-3 p-button-warning p-button-rounded p-button-raised"> Get Started </a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
