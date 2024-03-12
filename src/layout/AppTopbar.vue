@@ -24,6 +24,11 @@ const logoUrl = computed(() => {
 const onTopBarMenuButton = () => {
     topbarMenuActive.value = !topbarMenuActive.value;
 };
+
+const meuCadastroClick = () => {
+    router.push('/cadastro')
+}
+
 const onSettingsClick = () => {
     topbarMenuActive.value = false;
     router.push('/documentation');
@@ -83,7 +88,7 @@ const isOutsideClicked = (event) => {
                 <i class="pi pi-calendar"></i>
                 <span>Calendar</span>
             </button>
-            <button @click="onTopBarMenuButton()" class="p-link layout-topbar-button">
+            <button @click="meuCadastroClick()" class="p-link layout-topbar-button">
                 <i class="pi pi-user"></i>
                 <span>Profile</span>
             </button>
