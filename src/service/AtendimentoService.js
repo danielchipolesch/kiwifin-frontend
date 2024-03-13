@@ -1,4 +1,4 @@
-export default class ProductService {
+export default class AtendimentoService {
 	getAtendimentosSmall() {
 		return fetch('demo/data/atendimentos-small.json')
 			.then((res) => res.json())

@@ -2,6 +2,7 @@
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount } from 'vue';
 import AtendimentoService from '@/service/AtendimentoService';
+import AssuntoService from '@/service/AssuntoService';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
@@ -21,6 +22,7 @@ const statuses = ref([
 	{ label: 'OUTOFSTOCK', value: 'outofstock' }
 ]);
 
+const assuntoService = new AssuntoService();
 const atendimentoService = new AtendimentoService();
 
 onBeforeMount(() => {
@@ -44,18 +46,22 @@ const hideDialog = () => {
 	submitted.value = false;
 };
 
-const saveProduct = () => {
+const salvarAtendimento = () => {
 	submitted.value = true;
-	if (atendimento.value.assunto && atendimento.value.assunto.trim() && atendimento.value.protocolo) {
+    // && atendimento.value.assunto.trim()
+	if (atendimento.value.assunto && atendimento.value.descricao) {
 		if (atendimento.value.id) {
-			atendimento.value.conclusao = atendimento.value.conclusao.value ? atendimento.value.conclusao.value : atendimento.value.conclusao;
+			atendimento.value.assunto = atendimento.value.assunto.value ? atendimento.value.assunto.value : atendimento.value.assunto;
+			atendimento.value.descricao = atendimento.value.descricao.value ? atendimento.value.descricao.value : atendimento.value.descricao;
 			atendimentos.value[findIndexById(atendimento.value.id)] = atendimento.value;
+            console.log(atendimento.value)
 			toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
 		} else {
 			atendimento.value.id = createId();
-			atendimento.value.andamento = createId();
-			atendimento.value.image = 'atendimento-placeholder.svg';
-			atendimento.value.conclusao = atendimento.value.conclusao ? atendimento.value.conclusao.value : 'INSTOCK';
+			// atendimento.value.andamento = "Criado";
+			atendimento.value.imagem = 'atendimento-placeholder.svg';
+//			atendimento.value.conclusao = atendimento.value.conclusao ? atendimento.value.conclusao.value : 'INSTOCK';
+			atendimento.value.descricao = atendimento.value.descricao ? atendimento.value.descricao.value : 'Genérico';
 			atendimentos.value.push(atendimento.value);
 			toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
 		}
@@ -64,23 +70,32 @@ const saveProduct = () => {
 	}
 };
 
-const editProduct = (editProduct) => {
-	atendimento.value = { ...editProduct };
+const editarAtendimento = (editarAtendimento) => {
+	atendimento.value = { ...editarAtendimento };
 	console.log(atendimento);
 	atendimentoDialog.value = true;
 };
 
-const confirmDeleteProduct = (editProduct) => {
-	atendimento.value = editProduct;
+const confirmaDeletarAtendimento = (editarAtendimento) => {
+	atendimento.value = editarAtendimento;
 	deleteAtendimentoDialog.value = true;
 };
 
-const deleteProduct = () => {
+const deletarAtendimento = () => {
 	atendimentos.value = atendimentos.value.filter((val) => val.id !== atendimento.value.id);
 	deleteAtendimentoDialog.value = false;
 	atendimento.value = {};
 	toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
 };
+
+const assuntos = ref([
+    { name: '', code: ''},
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
+]);
 
 const findIndexById = (id) => {
 	let index = -1;
@@ -188,7 +203,7 @@ const initFilters = () => {
 					<!--<Column header="Image" headerStyle="width:14%; min-width:10rem;">-->
 					<!--	<template #body="slotProps">-->
 					<!--		<span class="p-column-title">Image</span>-->
-					<!--		<img :src="'demo/images/atendimento/' + slotProps.data.image" :alt="slotProps.data.image" class="shadow-2" width="100" />-->
+					<!--		<img :src="'demo/images/atendimento/' + slotProps.data.imagem" :alt="slotProps.data.imagem" class="shadow-2" width="100" />-->
 					<!--	</template>-->
 					<!--</Column>-->
 					<Column field="protocolo" header="Protocolo" :sortable="true" headerStyle="width:10%; min-width:8rem;">
@@ -217,27 +232,31 @@ const initFilters = () => {
 					</Column>
 					<Column headerStyle="width:14%; min-width:10rem;">
 						<template #body="slotProps">
-							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editProduct(slotProps.data)" />
-							<Button icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-info mr-2" @click="editProduct(slotProps.data)" />
-							<Button icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-warning mr-2" @click="editProduct(slotProps.data)" />
-							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmDeleteProduct(slotProps.data)" />
+							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editarAtendimento(slotProps.data)" />
+							<Button icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-info mr-2" @click="editarAtendimento(slotProps.data)" />
+							<Button icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-warning mr-2" @click="editarAtendimento(slotProps.data)" />
+							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmaDeletarAtendimento(slotProps.data)" />
 						</template>
 					</Column>
 				</DataTable>
 
 				<Dialog v-model:visible="atendimentoDialog" :style="{ width: '500px' }" header="Novo Atendimento" :modal="true" class="p-fluid">
-					<img :src="'demo/images/atendimento/' + atendimento.image" :alt="atendimento.image" v-if="atendimento.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" />
+					<img :src="'demo/images/atendimento/' + atendimento.imagem" :alt="atendimento.imagem" v-if="atendimento.imagem" width="150" class="mt-0 mx-auto mb-5 block shadow-2" />
 					<div class="field">
 						<label for="assunto">Assunto</label>
-						<InputText id="assunto" v-model.trim="atendimento.assunto" required="true" autofocus :class="{ 'p-invalid': submitted && !atendimento.assunto }" />
+						<!-- <InputText id="assunto" v-model.trim="atendimento.assunto" required="true" autofocus :class="{ 'p-invalid': submitted && !atendimento.assunto }" /> -->
+                        <Dropdown id="assunto" v-model="atendimento.assunto" :options="assuntos" optionLabel="name" placeholder="Select" :class="{ 'p-invalid': submitted && !atendimento.assunto }" required="true"/>
 						<small class="p-invalid" v-if="submitted && !atendimento.assunto">Assunto is required.</small>
 					</div>
+                    <!-- <div class="field">
+                        <Dropdown v-model="atendimento.assunto2" :options="assunto2s" optionLabel="name" placeholder="Select" required="true"/>
+                    </div> -->
 					<div class="field">
-						<label for="description">Description</label>
-						<Textarea id="description" v-model="atendimento.description" required="true" rows="3" cols="20" />
+						<label for="descricao">Descrição</label>
+						<Textarea id="descricao" v-model="atendimento.descricao" required="true" rows="3" cols="20" />
 					</div>
 
-					<div class="field">
+					<!-- <div class="field">
 						<label for="conclusao" class="mb-3">Inventory Conclusão</label>
 						<Dropdown id="conclusao" v-model="atendimento.conclusao" :options="statuses" optionLabel="label" placeholder="Select a Conclusão">
 							<template #value="slotProps">
@@ -283,13 +302,13 @@ const initFilters = () => {
 							<small class="p-invalid" v-if="submitted && !atendimento.protocolo">Protocolo is required.</small>
 						</div>
 						<div class="field col">
-							<label for="quantity">Quantity</label>
-							<InputNumber id="quantity" v-model="atendimento.quantity" integeronly />
+							<label for="quantidade">Quantity</label>
+							<InputNumber id="quantidade" v-model="atendimento.quantidade" integeronly />
 						</div>
-					</div>
+					</div> -->
 					<template #footer>
 						<Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
-						<Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveProduct" />
+						<Button label="Save" icon="pi pi-check" class="p-button-text" @click="salvarAtendimento" />
 					</template>
 				</Dialog>
 
@@ -303,7 +322,7 @@ const initFilters = () => {
 					</div>
 					<template #footer>
 						<Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteAtendimentoDialog = false" />
-						<Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProduct" />
+						<Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deletarAtendimento" />
 					</template>
 				</Dialog>
 
