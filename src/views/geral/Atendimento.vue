@@ -55,7 +55,7 @@ const salvarAtendimento = () => {
 			atendimento.value.descricao = atendimento.value.descricao.value ? atendimento.value.descricao.value : atendimento.value.descricao;
 			atendimentos.value[findIndexById(atendimento.value.id)] = atendimento.value;
             console.log(atendimento.value)
-			toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Atendimento atualizado', life: 3000 });
 		} else {
 			atendimento.value.id = createId();
 			// atendimento.value.andamento = "Criado";
@@ -63,7 +63,7 @@ const salvarAtendimento = () => {
 //			atendimento.value.conclusao = atendimento.value.conclusao ? atendimento.value.conclusao.value : 'INSTOCK';
 			atendimento.value.descricao = atendimento.value.descricao ? atendimento.value.descricao.value : 'Genérico';
 			atendimentos.value.push(atendimento.value);
-			toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Atendimento criado', life: 3000 });
 		}
 		atendimentoDialog.value = false;
 		atendimento.value = {};
@@ -154,8 +154,8 @@ const initFilters = () => {
 				<Toolbar class="mb-4">
 					<template v-slot:start>
 						<div class="my-2">
-							<Button label="Novo" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" />
-							<Button label="Excluir" icon="pi pi-trash" class="p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" />
+							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
+							<Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" />
 						</div>
 					</template>
 
@@ -307,33 +307,33 @@ const initFilters = () => {
 						</div>
 					</div> -->
 					<template #footer>
-						<Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
-						<Button label="Save" icon="pi pi-check" class="p-button-text" @click="salvarAtendimento" />
+						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
+						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarAtendimento" />
 					</template>
 				</Dialog>
 
-				<Dialog v-model:visible="deleteAtendimentoDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
+				<Dialog v-model:visible="deleteAtendimentoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
 						<span v-if="atendimento"
-							>Are you sure you want to delete <b>{{ atendimento.assunto }}</b
+							>Tem certeza que deseja excluir o Atendimento n. <b>{{ atendimento.protocolo }}</b
 							>?</span
 						>
 					</div>
 					<template #footer>
-						<Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteAtendimentoDialog = false" />
-						<Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deletarAtendimento" />
+						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteAtendimentoDialog = false" />
+						<Button label="Sim" icon="pi pi-check" class="p-button-raised p-button-danger" @click="deletarAtendimento" />
 					</template>
 				</Dialog>
 
-				<Dialog v-model:visible="deleteAtendimentosDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
+				<Dialog v-model:visible="deleteAtendimentosDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="atendimento">Are you sure you want to delete the selected atendimentos?</span>
+						<span v-if="atendimento">Tem certeza que deseja excluir os atendimentos selecionados?</span>
 					</div>
 					<template #footer>
-						<Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteAtendimentosDialog = false" />
-						<Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteSelectedProducts" />
+						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteAtendimentosDialog = false" />
+						<Button label="Sim" icon="pi pi-check" class="p-button-raised p-button-danger" @click="deleteSelectedProducts" />
 					</template>
 				</Dialog>
 			</div>
