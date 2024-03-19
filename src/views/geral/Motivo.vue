@@ -146,7 +146,7 @@ const initFilters = () => {
 				<Toolbar class="mb-4">
 					<template v-slot:start>
 						<div class="my-2">
-							<!-- <Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" /> -->
+							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
 							<Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedMotivos || !selectedMotivos.length" />
 						</div>
 					</template>
