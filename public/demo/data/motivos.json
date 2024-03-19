@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "id": "1000",
+            "nome": "MOTIVO",
+            "descricao": "Este é o motivo 0"
+        },
+        {
+            "id": "1001",
+            "nome": "MOTIVO1",
+            "descricao": "Este é o motivo 1"
+        },
+        {
+            "id": "1002",
+            "nome": "MOTIVO2",
+            "descricao": "Este é o motivo 2"
+        },
+        {
+            "id": "1003",
+            "nome": "MOTIVO3",
+            "descricao": "Este é o motivo 3"
+        },
+        {
+            "id": "1004",
+            "nome": "MOTIVO4",
+            "descricao": "Este é o motivo 4"
+        },
+        {
+            "id": "1005",
+            "nome": "MOTIVO5",
+            "descricao": "Este é o motivo 5"
+        }
+    ]
+}
