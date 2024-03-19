@@ -31,8 +31,13 @@ onBeforeMount(() => {
 onMounted(() => {
 	clienteService.getClientes().then((data) => (clientes.value = data));
 });
+
 const formatCurrency = (value) => {
 	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
+};
+
+const formatName = (value) => {
+	return value.toUpperCase();
 };
 
 const openNew = () => {
@@ -191,7 +196,7 @@ const initFilters = () => {
 					<Column field="nome" header="Nome" :sortable="true" headerStyle="width:25%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
-							{{ slotProps.data.nome }}
+							{{ formatName(slotProps.data.nome) }}
 						</template>
 					</Column>
 					<Column field="cpf" header="CPF" :sortable="true" headerStyle="width:15%; min-width:10rem;">
