@@ -4,6 +4,7 @@ import { ref, onMounted, onBeforeMount } from 'vue';
 import AtendimentoService from '@/service/AtendimentoService';
 import AssuntoService from '@/service/AssuntoService';
 import { useToast } from 'primevue/usetoast';
+import {jsPDF} from 'jspdf';
 
 const toast = useToast();
 
@@ -24,6 +25,13 @@ const statuses = ref([
 
 const assuntoService = new AssuntoService();
 const atendimentoService = new AtendimentoService();
+
+const gerarPdf = (atendimento) => {
+    const doc = new jsPDF();
+    doc.addImage("kiwi-fruit-logo.png", 'PNG', 20, 20, 20, 20, null, 'NONE', 0 );
+    doc.text(atendimento.andamento, 10, 10, {align:"left"});
+    doc.output("dataurlnewwindow", `${atendimento.protocolo}.pdf`);
+}
 
 onBeforeMount(() => {
 	initFilters();
@@ -234,7 +242,7 @@ const initFilters = () => {
 					</Column>
 					<Column headerStyle="width:14%; min-width:10rem;">
 						<template #body="slotProps">
-							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editarAtendimento(slotProps.data)" />
+							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="gerarPdf(slotProps.data)" />
 							<Button icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-info mr-2" @click="editarAtendimento(slotProps.data)" />
 							<Button icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-warning mr-2" @click="editarAtendimento(slotProps.data)" />
 							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmaDeletarAtendimento(slotProps.data)" />
