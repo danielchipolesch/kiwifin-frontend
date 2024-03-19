@@ -127,23 +127,23 @@ watch(
                         <i class="pi pi-inbox text-blue-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">24 new </span>
-                <span class="text-500">since last visit</span>
+                <span class="text-green-500 font-medium">24 </span>
+                <span class="text-500">novos</span>
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">Respondidos</span>
+                        <span class="block text-500 font-medium mb-3">Atendidos</span>
                         <div class="text-900 font-medium text-xl">2.100</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-flag text-orange-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">%52+ </span>
-                <span class="text-500">since last week</span>
+                <span class="text-green-500 font-medium">52 </span>
+                <span class="text-500">novos</span>
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
@@ -151,14 +151,14 @@ watch(
                 <div class="flex justify-content-between mb-3">
                     <div>
                         <span class="block text-500 font-medium mb-3">Reabertos</span>
-                        <div class="text-900 font-medium text-xl">28.441</div>
+                        <div class="text-900 font-medium text-xl">28</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-comment text-cyan-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">520 </span>
-                <span class="text-500">newly registered</span>
+                <span class="text-green-500 font-medium">0 </span>
+                <span class="text-500">novos</span>
             </div>
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
@@ -173,7 +173,7 @@ watch(
                     </div>
                 </div>
                 <span class="text-green-500 font-medium">85 </span>
-                <span class="text-500">responded</span>
+                <span class="text-500">novos</span>
             </div>
         </div>
 

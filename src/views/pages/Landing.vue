@@ -173,9 +173,7 @@ const logoUrl = computed(() => {
                     </div>
 
                     <div class="col-12 md:col-12 lg:col-4 p-0 lg:pr-5 mt-4 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(160, 210, 250, 0.2)), linear-gradient(180deg, rgba(187, 199, 205, 0.2), rgba(145, 210, 204, 0.2))"
-                        >
+                        <div style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(160, 210, 250, 0.2)), linear-gradient(180deg, rgba(187, 199, 205, 0.2), rgba(145, 210, 204, 0.2))" >
                             <div class="p-3 surface-card h-full" style="border-radius: 8px">
                                 <div class="flex align-items-center justify-content-center bg-teal-200 mb-3" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
                                     <i class="pi pi-fw pi-shopping-cart text-2xl text-teal-700"></i>
@@ -187,9 +185,7 @@ const logoUrl = computed(() => {
                     </div>
 
                     <div class="col-12 md:col-12 lg:col-4 p-0 lg:pr-5 mt-4 lg:mt-0">
-                        <div
-                            style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(251, 199, 145, 0.2), rgba(160, 210, 250, 0.2))"
-                        >
+                        <div style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(251, 199, 145, 0.2), rgba(160, 210, 250, 0.2))">
                             <div class="p-3 surface-card h-full" style="border-radius: 8px">
                                 <div class="flex align-items-center justify-content-center bg-blue-200 mb-3" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
                                     <i class="pi pi-fw pi-globe text-2xl text-blue-700"></i>
@@ -222,7 +218,7 @@ const logoUrl = computed(() => {
                             <h3 class="text-gray-900 mb-2">Joséphine Miller</h3>
                             <span class="text-gray-600 text-2xl">Peak Interactive</span>
                             <p class="text-gray-900 sm:line-height-2 md:line-height-4 text-2xl mt-4" style="max-width: 800px">
-                                “Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”
+                                “Contratei a KFG para organizar minhas finanças e posso dizer com convicção que foi a melhor decisão que tomei em anos!”
                             </p>
                             <img src="/demo/images/landing/peak-logo.svg" class="mt-4" alt="Company logo" />
                         </div>
@@ -367,6 +363,7 @@ const logoUrl = computed(() => {
                     </div>
                 </div>
             </div>
+            <Divider class="bg-surface-200"></Divider>
 
             <div id="contact" class="py-4 px-4 mx-0 mt-8 lg:mx-8">
                 <div class="grid justify-content-between">
@@ -386,31 +383,34 @@ const logoUrl = computed(() => {
                         <div class="grid text-center md:text-left">
                             <div class="col-12 md:col-3">
                                 <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Companhia</h4>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Sobre nós</a>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Novidades</a>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Relacionamento</a>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Carreiras</a>
-                                <a class="line-height-3 text-xl block cursor-pointer text-700">Mídia</a>
-                            </div>
-
-                            <div class="col-12 md:col-3 mt-4 md:mt-0">
-                                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Recursos</h4>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Comece</a>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Aprenda</a>
-                                <a class="line-height-3 text-xl block cursor-pointer text-700">Estudos de Caso</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Sobre a KFG</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Quem Somos</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Novidades <img src="/demo/images/landing/new-badge.svg" class="ml-2" /></a>
+                                <!-- <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Relacionamento</a> -->
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Trabalhe Conosco</a>
+                                <!-- <a class="line-height-3 text-xl block cursor-pointer text-700">Mídia</a> -->
                             </div>
 
                             <div class="col-12 md:col-3 mt-4 md:mt-0">
                                 <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Comunidade</h4>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Discord</a>
+                                
                                 <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Eventos<img src="/demo/images/landing/new-badge.svg" class="ml-2" /></a>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">FAQ</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Perguntas Frequentes</a>
                                 <a class="line-height-3 text-xl block cursor-pointer text-700">Blog</a>
                             </div>
 
                             <div class="col-12 md:col-3 mt-4 md:mt-0">
+                                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Mídias Sociais</h4>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"><i class="pi pi-facebook"></i> Facebook</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"><i class="pi pi-instagram"></i> Instagram</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"><i class="pi pi-youtube"></i> YouTube</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"><i class="pi pi-telegram"></i> Telegram</a>
+                                <a class="line-height-3 text-xl block cursor-pointer text-700"><i class="pi pi-discord"></i> Discord</a>
+                            </div>
+
+                            <div class="col-12 md:col-3 mt-4 md:mt-0">
                                 <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Legal</h4>
-                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Políticas da Marca</a>
+                                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Políticas de Uso da Marca</a>
                                 <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Políticas de Privacidade</a>
                                 <a class="line-height-3 text-xl block cursor-pointer text-700">Termos de Serviço</a>
                             </div>

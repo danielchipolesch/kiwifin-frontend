@@ -157,9 +157,12 @@ const senhaAtual = ref(null);
 					<label for="password2" class="block text-900 font-medium text-xl mb-2">Repita a nova senha</label>
 					<Password id="password2" v-model="password2" placeholder="Repita a senha" :toggleMask="true" class="w-full mb-3" inputClass="w-full" :inputStyle="{ padding: '0.5rem' }"></Password>
 				</span>
-				<small>{{ resposta }} Inserir função para validação de senhas</small>
+				<small>{{ resposta }} senhas não conferem</small>
 			</div>
 		</div>
+        <div class="flex flex-row-reverse flex-wrap">
+            <Button label="Alterar" class="p-button-raised mr-2 mb-2"/>
+        </div>
 	</div>
 
 	<AppConfig simple />

@@ -182,19 +182,19 @@ const initFilters = () => {
 							<h5 class="m-0"></h5>
 							<span class="block mt-2 md:mt-0 p-input-icon-left">
 								<i class="pi pi-search" />
-								<InputText v-model="filters['global'].value" placeholder="Search..." />
+								<InputText v-model="filters['global'].value" placeholder="Procurar..." />
 							</span>
 						</div>
 					</template>
 
-					<Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-					<Column field="andamento" header="Andamento" :sortable="true" headerStyle="width:5%; min-width:10rem;">
+					<Column selectionMode="multiple" headerStyle="width: 3%"></Column>
+					<Column field="andamento" header="Andamento" :sortable="true" headerStyle="width:20%; min-width:10rem;">
 						<template #body="slotProps">
-							<span class="p-column-title">Andamento</span>
+							<span class="p-column-title">Status</span>
 							{{ slotProps.data.andamento }}
 						</template>
 					</Column>
-					<Column field="assunto" header="Assunto" :sortable="true" headerStyle="width:25%; min-width:10rem;">
+					<Column field="assunto" header="Assunto" :sortable="true" headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Assunto</span>
 							{{ slotProps.data.assunto }}
@@ -209,22 +209,24 @@ const initFilters = () => {
 					<Column field="protocolo" header="Protocolo" :sortable="true" headerStyle="width:10%; min-width:8rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Protocolo</span>
-							{{ formatCurrency(slotProps.data.protocolo) }}
+							<!-- {{ formatCurrency(slotProps.data.protocolo) }} -->
+                            {{ slotProps.data.protocolo }}
 						</template>
 					</Column>
-					<Column field="criacao" header="Criação" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+					<Column field="criacao" header="Criação" :sortable="true" headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Criação</span>
 							{{ slotProps.data.criacao }}
 						</template>
 					</Column>
-					<Column field="prazo" header="Prazo" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+					<Column field="prazo" header="Prazo" :sortable="true" headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Rating</span>
-							<Rating :modelValue="slotProps.data.prazo" :readonly="true" :cancel="false" />
+							<!-- <Rating :modelValue="slotProps.data.prazo" :readonly="true" :cancel="false" /> -->
+                            {{ slotProps.data.prazo }}
 						</template>
 					</Column>
-					<Column field="conclusao" header="Conclusão" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+					<Column field="conclusao" header="Conclusão" :sortable="true" headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Conclusão</span>
 							<span :class="'atendimento-badge status-' + (slotProps.data.conclusao ? slotProps.data.conclusao.toLowerCase() : '')">{{ slotProps.data.conclusao }}</span>
