@@ -27,9 +27,15 @@ const assuntoService = new AssuntoService();
 const atendimentoService = new AtendimentoService();
 
 const gerarPdf = (atendimento) => {
-    const doc = new jsPDF();
-    doc.addImage("kiwi-fruit-logo.png", 'PNG', 20, 20, 20, 20, null, 'NONE', 0 );
-    doc.text(atendimento.andamento, 10, 10, {align:"left"});
+    const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4',
+        
+    });
+    // doc.setFontSize(20);
+    doc.addImage("layout/images/kiwifin-logo.png", 'PNG', 50, 15, null, null, null, 'NONE', 0 );
+    doc.text(`Situação atual: ${atendimento.andamento}`, 20, 50, {align:"left"});
     doc.output("dataurlnewwindow", `${atendimento.protocolo}.pdf`);
 }
 

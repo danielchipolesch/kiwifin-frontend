@@ -16,11 +16,11 @@ const selectedMotivos = ref(null);
 const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
-const statuses = ref([
-	{ label: 'INSTOCK', value: 'instock' },
-	{ label: 'LOWSTOCK', value: 'lowstock' },
-	{ label: 'OUTOFSTOCK', value: 'outofstock' }
-]);
+// const statuses = ref([
+// 	{ label: 'INSTOCK', value: 'instock' },
+// 	{ label: 'LOWSTOCK', value: 'lowstock' },
+// 	{ label: 'OUTOFSTOCK', value: 'outofstock' }
+// ]);
 
 const descricaoService = new AssuntoService();
 const motivoService = new MotivoService();
@@ -28,12 +28,14 @@ const motivoService = new MotivoService();
 onBeforeMount(() => {
 	initFilters();
 });
+
 onMounted(() => {
 	motivoService.getMotivos().then((data) => (motivos.value = data));
 });
-const formatCurrency = (value) => {
-	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
-};
+
+// const formatCurrency = (value) => {
+// 	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
+// };
 
 const openNew = () => {
 	motivo.value = {};
