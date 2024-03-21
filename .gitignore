@@ -34,6 +34,7 @@ coverage
 # Editor directories and files
 .fleet
 .fleet/*
+.vscode
 
 # Themes
 public/themes/soho-light/

@@ -25,17 +25,16 @@ const submitted = ref(false);
 const descricaoService = new AssuntoService();
 const motivoService = new MotivoService();
 
+const nomeMotivo = ref(null)
+
 onBeforeMount(() => {
 	initFilters();
 });
 
 onMounted(() => {
-	motivoService.getMotivos().then((data) => (motivos.value = data));
+	motivoService.getMotivos()
+    .then((data) => (motivos.value = data));
 });
-
-// const formatCurrency = (value) => {
-// 	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
-// };
 
 const openNew = () => {
 	motivo.value = {};
