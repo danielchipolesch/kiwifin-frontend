@@ -29,4 +29,14 @@ export default class DepartamentoService {
 			.then((res) => res.json())
 			.catch((err) => console.log(err));
 	}
+
+	deleteDepartamento(idDepartamento) {
+		return fetch(`http://localhost:8080/api/departamento/deletar/${idDepartamento}`, {
+			method: 'DELETE',
+			// body: JSON.stringify(data),
+			headers: { 'Content-type': 'application/json' }
+		})
+			.then((res) => console.log(res.status))
+			.catch((err) => console.log(err));
+	}
 }
