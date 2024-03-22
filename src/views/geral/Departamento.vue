@@ -47,20 +47,17 @@ const salvarDepartamento = () => {
     // && departamento.value.descricao.trim()
     console.log(departamento.value.status.value)
 	if (departamento.value.nome && departamento.value.status) {
-		if (departamento.value.id) {
+		if (departamento.value.idDepartamento) {
 			departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
 			departamento.value.status = departamento.value.status.value ? departamento.value.status.value : departamento.value.status;
-			departamentos.value[findIndexById(departamento.value.id)] = departamento.value;
-            console.log(departamento.value)
+			departamentos.value[findIndexById(departamento.value.idDepartamento)] = departamento.value;
+            departamentoService.updateDepartamento(departamento.value)
+            // console.log(departamento.value)
 			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento atualizado', life: 3000 });
 		} else {
-			// departamento.value.id = createId();
-			// departamento.value.nome = "Criado";
-			// departamento.value.nome = departamento.value.nome ? departamento.value.nome.value : 'Teste';
-            // departamento.value.status = departamento.value.status ? departamento.value.status.value : true;
-            departamentoService.createDepartamento(departamento.value)
+		    departamentoService.createDepartamento(departamento.value)
             console.log(departamento.value)
-			departamentos.value.push(departamento.value);
+			// departamentos.value.push(departamento.value);
 			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 });
 		}
 		departamentoDialog.value = false;
@@ -74,8 +71,8 @@ const editarDepartamento = (editarDepartamento) => {
 	departamentoDialog.value = true;
 };
 
-const confirmaDeletarDepartamento = (editarDepartamento) => {
-	departamento.value = editarDepartamento;
+const confirmaDeletarDepartamento = (deletarDepartamento) => {
+	departamento.value = deletarDepartamento;
 	deleteDepartamentoDialog.value = true;
 };
 
@@ -187,7 +184,7 @@ const initFilters = () => {
 					<Column field="status" header="Status" :sortable="true" headerStyle="width:60%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
-							{{ slotProps.data.status }}
+							{{ slotProps.data.status }} + {{slotProps.data.idDepartamento}}
 						</template>
 					</Column>
 					<!--<Column header="Image" headerStyle="width:14%; min-width:10rem;">-->

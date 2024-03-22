@@ -19,4 +19,14 @@ export default class DepartamentoService {
 			.then((res) => res.json())
 			.catch((err) => console.log(err));
 	}
+
+	updateDepartamento(data) {
+		return fetch('http://localhost:8080/api/departamento/editar', {
+			method: 'PUT',
+			body: JSON.stringify(data),
+			headers: { 'Content-type': 'application/json' }
+		})
+			.then((res) => res.json())
+			.catch((err) => console.log(err));
+	}
 }
