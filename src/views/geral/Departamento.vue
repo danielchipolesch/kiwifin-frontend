@@ -45,20 +45,21 @@ const hideDialog = () => {
 const salvarDepartamento = () => {
 	submitted.value = true;
     // && departamento.value.descricao.trim()
-    console.log(departamento.value.status.value)
+    // console.log(departamento.value.status.value)
 	if (departamento.value.nome && departamento.value.status) {
 		if (departamento.value.idDepartamento) {
-			departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
+            departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
 			departamento.value.status = departamento.value.status.value ? departamento.value.status.value : departamento.value.status;
 			departamentos.value[findIndexById(departamento.value.idDepartamento)] = departamento.value;
             departamentoService.updateDepartamento(departamento.value)
-            // console.log(departamento.value)
-			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento atualizado', life: 3000 });
+                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento atualizado', life: 3000 }))
+                // .then((data) => (departamentos.value = data))
+                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
 		} else {
 		    departamentoService.createDepartamento(departamento.value)
-            console.log(departamento.value)
-			// departamentos.value.push(departamento.value);
-			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 });
+                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 }))
+                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
+            departamentos.value.push(departamento.value);
 		}
 		departamentoDialog.value = false;
 		departamento.value = {};
@@ -67,7 +68,6 @@ const salvarDepartamento = () => {
 
 const editarDepartamento = (editarDepartamento) => {
 	departamento.value = { ...editarDepartamento };
-	console.log(departamento);
 	departamentoDialog.value = true;
 };
 
@@ -77,10 +77,11 @@ const confirmaDeletarDepartamento = (deletarDepartamento) => {
 };
 
 const deletarDepartamento = () => {
-	departamentos.value = departamentos.value.filter((val) => val.id !== departamento.value.id);
+	departamentos.value = departamentos.value.filter((val) => val.idDepartamento !== departamento.value.idDepartamento);
+    departamentoService.deleteDepartamento(departamento.value.idDepartamento)
+        .then(toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento Excluído', life: 3000 }))
 	deleteDepartamentoDialog.value = false;
-	departamento.value = {};
-	toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento Excluído', life: 3000 });
+	departamento.value = {};	
 };
 
 
@@ -187,38 +188,6 @@ const initFilters = () => {
 							{{ slotProps.data.status }} + {{slotProps.data.idDepartamento}}
 						</template>
 					</Column>
-					<!--<Column header="Image" headerStyle="width:14%; min-width:10rem;">-->
-					<!--	<template #body="slotProps">-->
-					<!--		<span class="p-column-title">Image</span>-->
-					<!--		<img :src="'demo/images/departamento/' + slotProps.data.imagem" :alt="slotProps.data.imagem" class="shadow-2" width="100" />-->
-					<!--	</template>-->
-					<!--</Column>-->
-					<!-- <Column field="dtNascimento" header="Data Nascimento" :sortable="true" headerStyle="width:15%; min-width:8rem;">
-						<template #body="slotProps">
-							<span class="p-column-title">Data Nascimento</span>
-							{{ formatCurrency(slotProps.data.dtNascimento) }}
-                            {{ slotProps.data.dtNascimento }}
-						</template>
-					</Column>
-					<Column field="email" header="E-mail" :sortable="true" headerStyle="width:15%; min-width:10rem;">
-						<template #body="slotProps">
-							<span class="p-column-title">E-mail</span>
-							{{ slotProps.data.email }}
-						</template>
-					</Column> -->
-					<!-- <Column field="prazo" header="Prazo" :sortable="true" headerStyle="width:10%; min-width:10rem;">
-						<template #body="slotProps">
-							<span class="p-column-title">Rating</span>
-							<Rating :modelValue="slotProps.data.prazo" :readonly="true" :cancel="false" />
-                            {{ slotProps.data.prazo }}
-						</template>
-					</Column>
-					<Column field="conclusao" header="Conclusão" :sortable="true" headerStyle="width:10%; min-width:10rem;">
-						<template #body="slotProps">
-							<span class="p-column-title">Conclusão</span>
-							<span :class="'departamento-badge status-' + (slotProps.data.conclusao ? slotProps.data.conclusao.toLowerCase() : '')">{{ slotProps.data.conclusao }}</span>
-						</template>
-					</Column> -->
 					<Column headerStyle="width:14%; min-width:10rem;">
 						<template #body="slotProps">
 							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editarDepartamento(slotProps.data)" />
@@ -246,57 +215,6 @@ const initFilters = () => {
                         <InputSwitch id="status" v-model="departamento.status" required="true" autofocus :class="{ 'p-invalid': submitted && !departamento.status }"/>
 						<!-- <Textarea id="status" v-model="departamento.status" required="true" rows="3" cols="20" /> -->
 					</div>
-
-					<!-- <div class="field">
-						<label for="conclusao" class="mb-3">Inventory Conclusão</label>
-						<Dropdown id="conclusao" v-model="departamento.conclusao" :options="statuses" optionLabel="label" placeholder="Select a Conclusão">
-							<template #value="slotProps">
-								<div v-if="slotProps.value && slotProps.value.value">
-									<span :class="'departamento-badge status-' + slotProps.value.value">{{ slotProps.value.label }}</span>
-								</div>
-								<div v-else-if="slotProps.value && !slotProps.value.value">
-									<span :class="'departamento-badge status-' + slotProps.value.toLowerCase()">{{ slotProps.value }}</span>
-								</div>
-								<span v-else>
-									{{ slotProps.placeholder }}
-								</span>
-							</template>
-						</Dropdown>
-					</div>
-
-					<div class="field">
-						<label class="mb-3">E-mail</label>
-						<div class="formgrid grid">
-							<div class="field-radiobutton col-6">
-								<RadioButton id="email1" descricao="email" value="Accessories" v-model="departamento.email" />
-								<label for="email1">Accessories</label>
-							</div>
-							<div class="field-radiobutton col-6">
-								<RadioButton id="email2" descricao="email" value="Clothing" v-model="departamento.email" />
-								<label for="email2">Clothing</label>
-							</div>
-							<div class="field-radiobutton col-6">
-								<RadioButton id="email3" descricao="email" value="Electronics" v-model="departamento.email" />
-								<label for="email3">Electronics</label>
-							</div>
-							<div class="field-radiobutton col-6">
-								<RadioButton id="email4" descricao="email" value="Fitness" v-model="departamento.email" />
-								<label for="email4">Fitness</label>
-							</div>
-						</div>
-					</div>
-
-					<div class="formgrid grid">
-						<div class="field col">
-							<label for="dtNascimento">Data Nascimento</label>
-							<InputNumber id="dtNascimento" v-model="departamento.dtNascimento" mode="currency" currency="USD" locale="en-US" :class="{ 'p-invalid': submitted && !departamento.dtNascimento }" :required="true" />
-							<small class="p-invalid" v-if="submitted && !departamento.dtNascimento">Data Nascimento is required.</small>
-						</div>
-						<div class="field col">
-							<label for="quantidade">Quantity</label>
-							<InputNumber id="quantidade" v-model="departamento.quantidade" integeronly />
-						</div>
-					</div> -->
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
 						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarDepartamento" />
@@ -306,10 +224,7 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteDepartamentoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="departamento"
-							>Tem certeza que deseja excluir o Departamento n. <b>{{ departamento.dtNascimento }}</b
-							>?</span
-						>
+						<span v-if="departamento">Tem certeza que deseja excluir o Departamento n. <b>{{ departamento.idDepartamento }}</b>?</span>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteDepartamentoDialog = false" />
