@@ -13,7 +13,7 @@ const atendimentoDialog = ref(false);
 const deleteAtendimentoDialog = ref(false);
 const deleteAtendimentosDialog = ref(false);
 const atendimento = ref({});
-const selectedProducts = ref(null);
+const selectedAtendimentos = ref(null);
 const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
@@ -99,7 +99,7 @@ const deletarAtendimento = () => {
 	atendimentos.value = atendimentos.value.filter((val) => val.id !== atendimento.value.id);
 	deleteAtendimentoDialog.value = false;
 	atendimento.value = {};
-	toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+	toast.add({ severity: 'success', summary: 'Successful', detail: 'Atendimento Deleted', life: 3000 });
 };
 
 const assuntos = ref([
@@ -138,11 +138,11 @@ const exportCSV = () => {
 const confirmDeleteSelected = () => {
 	deleteAtendimentosDialog.value = true;
 };
-const deleteSelectedProducts = () => {
-	atendimentos.value = atendimentos.value.filter((val) => !selectedProducts.value.includes(val));
+const deleteSelectedAtendimentos = () => {
+	atendimentos.value = atendimentos.value.filter((val) => !selectedAtendimentos.value.includes(val));
 	deleteAtendimentosDialog.value = false;
-	selectedProducts.value = null;
-	toast.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+	selectedAtendimentos.value = null;
+	toast.add({ severity: 'success', summary: 'Successful', detail: 'Atendimentos Deleted', life: 3000 });
 };
 
 const initFilters = () => {
@@ -169,7 +169,7 @@ const initFilters = () => {
 					<template v-slot:start>
 						<div class="my-2">
 							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
-							<Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" />
+							<Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedAtendimentos || !selectedAtendimentos.length" />
 						</div>
 					</template>
 
@@ -182,7 +182,7 @@ const initFilters = () => {
 				<DataTable
 					ref="dt"
 					:value="atendimentos"
-					v-model:selection="selectedProducts"
+					v-model:selection="selectedAtendimentos"
 					dataKey="id"
 					:paginator="true"
 					:rows="10"
@@ -349,7 +349,7 @@ const initFilters = () => {
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteAtendimentosDialog = false" />
-						<Button label="Sim" icon="pi pi-check" class="p-button-raised p-button-danger" @click="deleteSelectedProducts" />
+						<Button label="Sim" icon="pi pi-check" class="p-button-raised p-button-danger" @click="deleteSelectedAtendimentos" />
 					</template>
 				</Dialog>
 			</div>

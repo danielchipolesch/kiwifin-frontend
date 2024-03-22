@@ -1,13 +1,10 @@
 export default class DepartamentoService {
 	getDepartamentos() {
-		return (
-			fetch('http://localhost:8080/api/departamento/buscar/todos', {
-				method: 'GET'
-			})
-				.then((res) => res.json())
-				// .then((d) => d.data)
-				.catch((err) => console.log(err))
-		);
+		return fetch('http://localhost:8080/api/departamento/buscar/todos', {
+			method: 'GET'
+		})
+			.then((res) => res.json())
+			.catch((err) => console.log(err));
 	}
 
 	createDepartamento(body) {
@@ -33,7 +30,6 @@ export default class DepartamentoService {
 	deleteDepartamento(idDepartamento) {
 		return fetch(`http://localhost:8080/api/departamento/deletar/${idDepartamento}`, {
 			method: 'DELETE',
-			// body: JSON.stringify(data),
 			headers: { 'Content-type': 'application/json' }
 		})
 			.then((res) => console.log(res.status))
