@@ -11,6 +11,7 @@ const model = ref([
 			// { label: 'Cadastro', icon: 'pi pi-fw pi-id-card', to: '/cadastro' },
 			{ label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento' },
 			{ label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente' },
+            { label: 'Departamento', icon: 'pi pi-fw pi-th-large', to: '/departamento' },
 			{ label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo' }
 		]
 	},
