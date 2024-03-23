@@ -198,8 +198,8 @@ const initFilters = () => {
 					<Column field="status" header="Status" :sortable="true" headerStyle="width:20%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
-                            <Tag class="mr-2" v-if="slotProps.data.status === true" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
-                            <Tag class="mr-2" v-if="slotProps.data.status === false" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
+                            <Tag class="mr-2" v-if="slotProps.data.status" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
+                            <Tag class="mr-2" v-if="!slotProps.data.status" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
 						</template>
 					</Column>
 					<Column headerStyle="width:10%; min-width:10rem;">
