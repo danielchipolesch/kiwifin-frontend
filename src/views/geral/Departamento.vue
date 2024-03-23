@@ -2,7 +2,6 @@
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount } from 'vue';
 import DepartamentoService from '@/service/DepartamentoService';
-import AssuntoService from '@/service/AssuntoService';
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
@@ -17,10 +16,20 @@ const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
 
-const descricaoService = new AssuntoService();
-const departamentoService = new DepartamentoService();
+const gerarPdf = (departamento) => {
+    const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4',
+        
+    });
+    // doc.setFontSize(20);
+    doc.addImage("layout/images/kiwifin-logo.png", 'PNG', 50, 15, null, null, null, 'NONE', 0 );
+    doc.text(`Situação atual: ${departamento.andamento}`, 20, 50, {align:"left"});
+    doc.output("dataurlnewwindow", `${departamento.protocolo}.pdf`);
+}
 
-const nomeDepartamento = ref(null)
+const departamentoService = new DepartamentoService();
 
 const buscarDepartamentos = () => {
     departamentoService.getDepartamentos()
@@ -149,7 +158,7 @@ const initFilters = () => {
 					<template v-slot:start>
 						<div class="my-2">
 							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
-							<Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedDepartamentos || !selectedDepartamentos.length" />
+							<!-- <Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedDepartamentos || !selectedDepartamentos.length" /> -->
 						</div>
 					</template>
 					 <template v-slot:end>
@@ -179,7 +188,7 @@ const initFilters = () => {
 						</div>
 					</template>
 
-					<Column selectionMode="multiple" headerStyle="width: 3%"></Column>
+					<!-- <Column selectionMode="multiple" headerStyle="width: 3%"></Column> -->
 					<Column field="nome" header="Nome" :sortable="true" headerStyle="width:60%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
@@ -189,12 +198,13 @@ const initFilters = () => {
 					<Column field="status" header="Status" :sortable="true" headerStyle="width:20%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
-							{{ slotProps.data.status }} + {{slotProps.data.idDepartamento}}
+                            <Tag class="mr-2" v-if="slotProps.data.status === true" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
+                            <Tag class="mr-2" v-if="slotProps.data.status === false" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
 						</template>
 					</Column>
-					<Column headerStyle="width:14%; min-width:10rem;">
+					<Column headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
-							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editarDepartamento(slotProps.data)" />
+							<!-- <Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editarDepartamento(slotProps.data)" /> -->
 							<Button icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-info mr-2" @click="editarDepartamento(slotProps.data)" />
 							<Button icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-warning mr-2" @click="editarDepartamento(slotProps.data)" />
 							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmaDeletarDepartamento(slotProps.data)" />
