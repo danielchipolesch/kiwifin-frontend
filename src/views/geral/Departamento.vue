@@ -44,8 +44,6 @@ const hideDialog = () => {
 
 const salvarDepartamento = () => {
 	submitted.value = true;
-    // && departamento.value.descricao.trim()
-    // console.log(departamento.value.status.value)
 	if (departamento.value.nome && departamento.value.status) {
 		if (departamento.value.idDepartamento) {
             departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
@@ -96,15 +94,6 @@ const findIndexById = (id) => {
 		}
 	}
 	return index;
-};
-
-const createId = () => {
-	let id = '';
-	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	for (let i = 0; i < 5; i++) {
-		id += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
-	return id;
 };
 
 const exportCSV = () => {
