@@ -16,19 +16,6 @@ const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
 
-const gerarPdf = (departamento) => {
-    const doc = new jsPDF({
-        orientation: 'p',
-        unit: 'mm',
-        format: 'a4',
-        
-    });
-    // doc.setFontSize(20);
-    doc.addImage("layout/images/kiwifin-logo.png", 'PNG', 50, 15, null, null, null, 'NONE', 0 );
-    doc.text(`Situação atual: ${departamento.andamento}`, 20, 50, {align:"left"});
-    doc.output("dataurlnewwindow", `${departamento.protocolo}.pdf`);
-}
-
 const departamentoService = new DepartamentoService();
 
 const buscarDepartamentos = () => {
@@ -41,7 +28,7 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-	buscarDepartamentos()
+	buscarDepartamentos();
 });
 
 const openNew = () => {
@@ -195,17 +182,15 @@ const initFilters = () => {
 							{{ slotProps.data.nome }}
 						</template>
 					</Column>
-					<Column field="status" header="Status" :sortable="true" headerStyle="width:20%; min-width:10rem;">
+					<Column field="status" header="Status" :sortable="true" headerStyle="width:25%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
                             <Tag class="mr-2" v-if="slotProps.data.status" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
                             <Tag class="mr-2" v-if="!slotProps.data.status" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
 						</template>
 					</Column>
-					<Column headerStyle="width:10%; min-width:10rem;">
+					<Column headerStyle="width:5%; min-width:10rem;">
 						<template #body="slotProps">
-							<!-- <Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="editarDepartamento(slotProps.data)" /> -->
-							<Button icon="pi pi-eye" class="p-button-rounded p-button-raised p-button-info mr-2" @click="editarDepartamento(slotProps.data)" />
 							<Button icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-warning mr-2" @click="editarDepartamento(slotProps.data)" />
 							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmaDeletarDepartamento(slotProps.data)" />
 						</template>
@@ -232,7 +217,7 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteDepartamentoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="departamento">Tem certeza que deseja excluir o Departamento n. <b>{{ departamento.idDepartamento }}</b>?</span>
+						<span v-if="departamento">Tem certeza que deseja excluir o Departamento <b>{{ departamento.nome }}</b>?</span>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteDepartamentoDialog = false" />
