@@ -145,7 +145,6 @@ const initFilters = () => {
 					<template v-slot:start>
 						<div class="my-2">
 							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
-							<!-- <Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedDepartamentos || !selectedDepartamentos.length" /> -->
 						</div>
 					</template>
 					 <template v-slot:end>
@@ -175,7 +174,6 @@ const initFilters = () => {
 						</div>
 					</template>
 
-					<!-- <Column selectionMode="multiple" headerStyle="width: 3%"></Column> -->
 					<Column field="nome" header="Nome" :sortable="true" headerStyle="width:60%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
