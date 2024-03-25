@@ -96,10 +96,6 @@ const findIndexById = (id) => {
 	return index;
 };
 
-const exportCSV = () => {
-	dt.value.exportCSV();
-};
-
 const confirmDeleteSelected = () => {
 	deleteDepartamentosDialog.value = true;
 };
@@ -136,9 +132,6 @@ const initFilters = () => {
 							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
 						</div>
 					</template>
-					 <template v-slot:end>
-						<Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV($event)" />
-					</template> 
 				</Toolbar>
 
 				<DataTable
