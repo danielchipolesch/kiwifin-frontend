@@ -102,15 +102,6 @@ const deletarAtendimento = () => {
 	toast.add({ severity: 'success', summary: 'Successful', detail: 'Atendimento Deleted', life: 3000 });
 };
 
-const assuntos = ref([
-    { name: '', code: ''},
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-]);
-
 const findIndexById = (id) => {
 	let index = -1;
 	for (let i = 0; i < atendimentos.value.length; i++) {
@@ -264,64 +255,10 @@ const initFilters = () => {
                         <Dropdown id="assunto" v-model="atendimento.assunto" :options="assuntos" optionLabel="name" placeholder="Select" :class="{ 'p-invalid': submitted && !atendimento.assunto }" required="true"/>
 						<small class="p-invalid" v-if="submitted && !atendimento.assunto">Assunto is required.</small>
 					</div>
-                    <!-- <div class="field">
-                        <Dropdown v-model="atendimento.assunto2" :options="assunto2s" optionLabel="name" placeholder="Select" required="true"/>
-                    </div> -->
 					<div class="field">
 						<label for="descricao">Descrição</label>
 						<Textarea id="descricao" v-model="atendimento.descricao" required="true" rows="3" cols="20" />
-					</div>
-
-					<!-- <div class="field">
-						<label for="conclusao" class="mb-3">Inventory Conclusão</label>
-						<Dropdown id="conclusao" v-model="atendimento.conclusao" :options="statuses" optionLabel="label" placeholder="Select a Conclusão">
-							<template #value="slotProps">
-								<div v-if="slotProps.value && slotProps.value.value">
-									<span :class="'atendimento-badge status-' + slotProps.value.value">{{ slotProps.value.label }}</span>
-								</div>
-								<div v-else-if="slotProps.value && !slotProps.value.value">
-									<span :class="'atendimento-badge status-' + slotProps.value.toLowerCase()">{{ slotProps.value }}</span>
-								</div>
-								<span v-else>
-									{{ slotProps.placeholder }}
-								</span>
-							</template>
-						</Dropdown>
-					</div>
-
-					<div class="field">
-						<label class="mb-3">Criação</label>
-						<div class="formgrid grid">
-							<div class="field-radiobutton col-6">
-								<RadioButton id="criacao1" assunto="criacao" value="Accessories" v-model="atendimento.criacao" />
-								<label for="criacao1">Accessories</label>
-							</div>
-							<div class="field-radiobutton col-6">
-								<RadioButton id="criacao2" assunto="criacao" value="Clothing" v-model="atendimento.criacao" />
-								<label for="criacao2">Clothing</label>
-							</div>
-							<div class="field-radiobutton col-6">
-								<RadioButton id="criacao3" assunto="criacao" value="Electronics" v-model="atendimento.criacao" />
-								<label for="criacao3">Electronics</label>
-							</div>
-							<div class="field-radiobutton col-6">
-								<RadioButton id="criacao4" assunto="criacao" value="Fitness" v-model="atendimento.criacao" />
-								<label for="criacao4">Fitness</label>
-							</div>
-						</div>
-					</div>
-
-					<div class="formgrid grid">
-						<div class="field col">
-							<label for="protocolo">Protocolo</label>
-							<InputNumber id="protocolo" v-model="atendimento.protocolo" mode="currency" currency="USD" locale="en-US" :class="{ 'p-invalid': submitted && !atendimento.protocolo }" :required="true" />
-							<small class="p-invalid" v-if="submitted && !atendimento.protocolo">Protocolo is required.</small>
-						</div>
-						<div class="field col">
-							<label for="quantidade">Quantity</label>
-							<InputNumber id="quantidade" v-model="atendimento.quantidade" integeronly />
-						</div>
-					</div> -->
+					</div>				
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
 						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarAtendimento" />
