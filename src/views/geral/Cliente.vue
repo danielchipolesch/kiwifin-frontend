@@ -2,8 +2,8 @@
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount } from 'vue';
 import ClienteService from '@/service/ClienteService';
-import AssuntoService from '@/service/AssuntoService';
 import { useToast } from 'primevue/usetoast';
+import moment from 'moment';
 
 const toast = useToast();
 
@@ -16,29 +16,29 @@ const selectedClientes = ref(null);
 const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
-const statuses = ref([
-	{ label: 'INSTOCK', value: 'instock' },
-	{ label: 'LOWSTOCK', value: 'lowstock' },
-	{ label: 'OUTOFSTOCK', value: 'outofstock' }
-]);
 
-const cpfService = new AssuntoService();
+
 const clienteService = new ClienteService();
 
 onBeforeMount(() => {
 	initFilters();
 });
 onMounted(() => {
-	clienteService.getClientes().then((data) => (clientes.value = data));
+	clienteService.buscarClientes().then((data) => (clientes.value = data));
 });
 
-const formatCurrency = (value) => {
-	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
-};
+// const formatarMoeda = (value) => {
+// 	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
+// };
 
-const formatName = (value) => {
+const formatarString = (value) => {
 	return value.toUpperCase();
 };
+
+const formatarData = (data) => {
+    data2 = new Date(data)
+    return data2.toLocaleDateString("pt-BR", {timeZone: 'UTC'})
+}
 
 const openNew = () => {
 	cliente.value = {};
@@ -92,15 +92,6 @@ const deletarCliente = () => {
 	cliente.value = {};
 	toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente Excluído', life: 3000 });
 };
-
-const cpfs = ref([
-    { name: '', code: ''},
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-]);
 
 const findIndexById = (id) => {
 	let index = -1;
@@ -159,15 +150,8 @@ const initFilters = () => {
 				<Toolbar class="mb-4">
 					<template v-slot:start>
 						<div class="my-2">
-							<!-- <Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" /> -->
-							<Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedClientes || !selectedClientes.length" />
 						</div>
 					</template>
-
-					 <!-- <template v-slot:end>
-						<FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block" />
-						<Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV($event)" />
-					</template>  -->
 				</Toolbar>
 
 				<DataTable
@@ -196,7 +180,7 @@ const initFilters = () => {
 					<Column field="nome" header="Nome" :sortable="true" headerStyle="width:25%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
-							{{ formatName(slotProps.data.nome) }}
+							{{ formatarString(slotProps.data.nome) }}
 						</template>
 					</Column>
 					<Column field="cpf" header="CPF" :sortable="true" headerStyle="width:15%; min-width:10rem;">
@@ -205,17 +189,10 @@ const initFilters = () => {
 							{{ slotProps.data.cpf }}
 						</template>
 					</Column>
-					<!--<Column header="Image" headerStyle="width:14%; min-width:10rem;">-->
-					<!--	<template #body="slotProps">-->
-					<!--		<span class="p-column-title">Image</span>-->
-					<!--		<img :src="'demo/images/cliente/' + slotProps.data.imagem" :alt="slotProps.data.imagem" class="shadow-2" width="100" />-->
-					<!--	</template>-->
-					<!--</Column>-->
 					<Column field="dtNascimento" header="Data Nascimento" :sortable="true" headerStyle="width:15%; min-width:8rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Data Nascimento</span>
-							<!-- {{ formatCurrency(slotProps.data.dtNascimento) }} -->
-                            {{ slotProps.data.dtNascimento }}
+                            {{ moment(slotProps.data.dataNascimento).format('DD/MM/YYYY') }}
 						</template>
 					</Column>
 					<Column field="email" header="E-mail" :sortable="true" headerStyle="width:15%; min-width:10rem;">

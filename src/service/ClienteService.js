@@ -1,7 +1,9 @@
 export default class ClienteService {
-	getClientes() {
-		return fetch('demo/data/clientes.json')
+	async buscarClientes() {
+		return fetch('http://localhost:8080/api/cliente/pesquisar/todos', {
+			method: 'GET'
+		})
 			.then((res) => res.json())
-			.then((d) => d.data);
+			.catch((err) => console.log(err));
 	}
 }
