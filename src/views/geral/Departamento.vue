@@ -193,7 +193,8 @@ const initFilters = () => {
                     <br>
 					<div class="field">
 						<h6 for="status">Status</h6>
-                        <InputSwitch id="status" v-model="departamento.status" required="true" autofocus :class="{ 'p-invalid': submitted && !departamento.status }"/>
+                        <InputSwitch id="status" v-model="departamento.status" required="true" autofocus :class="{ 'p-invalid': submitted && !departamento.status }"/><br>
+                        <small class="p-invalid" v-if="submitted && !departamento.status">Status é obrigatório.</small>
 					</div>
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
