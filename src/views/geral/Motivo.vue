@@ -57,22 +57,16 @@ const salvarMotivo = () => {
 	submitted.value = true;
 	if (motivo.value.nome && motivo.value.prazo && motivo.value.departamento && motivo.value.status) {
 		if (motivo.value.idMotivo) {
-            console.log(motivo.value)
             motivo.value.nome = motivo.value.nome.value ? motivo.value.nome.value : motivo.value.nome;
             motivo.value.prazo = motivo.value.prazo.value ? motivo.value.prazo.value : motivo.value.prazo;
 			motivo.value.status = motivo.value.status.value ? motivo.value.status.value : motivo.value.status;
             motivo.value.departamento = motivo.value.departamento.value ? motivo.value.departamento.value : motivo.value.departamento;
 			motivos.value[findIndexById(motivo.value.idMotivo)] = motivo.value;
-            console.log(motivo.value)
             motivoService.updateMotivo(motivo.value)
                 .then(() => buscarMotivos())
                 .then((res) => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo editado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))            
 		} else {
-            console.log(typeof(motivo.value.nome))
-            console.log(typeof(motivo.value.status))
-            console.log(typeof(motivo.value.prazo))
-            console.log(typeof(motivo.value.departamento))
             motivoService.createMotivo(motivo.value)
                 .then(() => buscarMotivos())
                 .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo criado', life: 3000 }))
@@ -86,7 +80,6 @@ const salvarMotivo = () => {
 
 const editarMotivo = (editarMotivo) => {
 	motivo.value = { ...editarMotivo };
-    console.log(editarMotivo)
     departamento.value = {...editarMotivo.departamento}
 	motivoDialog.value = true;
 };
@@ -126,10 +119,6 @@ const createId = () => {
 	return id;
 };
 
-const exportCSV = () => {
-	dt.value.exportCSV();
-};
-
 const initFilters = () => {
 	filters.value = {
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS }
@@ -156,10 +145,6 @@ const initFilters = () => {
 							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
 						</div>
 					</template>
-
-					 <template v-slot:end>
-						<Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV($event)" />
-					</template> 
 				</Toolbar>
 
 				<DataTable
@@ -236,7 +221,7 @@ const initFilters = () => {
                     </div>
                     <div class="field">
                         <label for="dpt">Departamento</label>
-                        <Dropdown id="dpt" v-model.number="motivo.departamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
+                        <Dropdown id="dpt" v-model.number="motivo.departamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
                         <small class="p-invalid" v-if="submitted && !motivo.departamento">Departamento é obrigatório.</small>
                     </div>
 					<template #footer>
