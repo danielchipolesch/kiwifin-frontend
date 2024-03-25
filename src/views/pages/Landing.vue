@@ -60,17 +60,17 @@ const logoUrl = computed(() => {
                         </li>
                     </ul>
                     <div class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
-                        <router-link to="/auth/login" target="_blank" rel="noopener"><Button label="Entrar" class="p-button-text p-button-rounded border-none font-light line-height-2 text-green-500"></Button></router-link>
-                        <Button label="Registrar" class="p-button-rounded border-none ml-5 font-light text-white line-height-2 bg-green-500"></Button>
+                        <router-link to="/auth/login" target="_blank" rel="noopener">
+                            <Button label="Entrar" class="p-button-text p-button-rounded border-none font-light line-height-2 text-green-500"></Button>
+                        </router-link>
+                        <router-link to="/auth/registrar" target="_blank" rel="noopener">
+                            <Button label="Registrar" class="p-button-rounded border-none ml-5 font-light text-white line-height-2 bg-green-500"></Button>
+                        </router-link>
                     </div>
                 </div>
             </div>
 
-            <div
-                id="hero"
-                class="flex flex-column pt-4 px-4 lg:px-8 overflow-hidden"
-                style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238, 239, 175) 0%, rgb(195, 227, 250) 100%); clip-path: ellipse(150% 87% at 93% 13%)"
-            >
+            <div id="hero" class="flex flex-column pt-4 px-4 lg:px-8 overflow-hidden" style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238, 239, 175) 0%, rgb(195, 227, 250) 100%); clip-path: ellipse(150% 87% at 93% 13%)">
                 <div class="mx-4 md:mx-8 mt-0 md:mt-4">
                     <h1 class="text-6xl font-bold text-gray-900 line-height-2"><span class="font-light block">Nossa História</span>Desde 1971</h1>
                     <p class="font-normal text-2xl line-height-3 md:mt-3 text-gray-700">Esta é a nossa história. Sed blandit libero volutpat sed cras. Fames ac turpis egestas integer. Placerat in egestas erat...</p>
