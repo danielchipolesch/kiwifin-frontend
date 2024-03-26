@@ -59,6 +59,11 @@ const router = createRouter({
 					component: () => import('@/views/geral/Cliente.vue')
 				},
 				{
+					path: '/colaborador',
+					name: 'colaborador',
+					component: () => import('@/views/geral/Colaborador.vue')
+				},
+				{
 					path: '/departamento',
 					name: 'departamento',
 					component: () => import('@/views/geral/Departamento.vue')

@@ -8,10 +8,10 @@ const model = ref([
 		label: 'Geral',
 		items: [
 			{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' },
-			// { label: 'Cadastro', icon: 'pi pi-fw pi-id-card', to: '/cadastro' },
 			{ label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento' },
 			{ label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente' },
-            { label: 'Departamento', icon: 'pi pi-fw pi-th-large', to: '/departamento' },
+            { label: 'Colaborador', icon: 'pi pi-fw pi-verified', to: '/colaborador' },
+            { label: 'Departamento', icon: 'pi pi-fw pi-sitemap', to: '/departamento' },
 			{ label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo' }
 		]
 	},
