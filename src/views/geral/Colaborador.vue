@@ -35,7 +35,7 @@ const buscarColaboradores = () => {
 }
 
 const buscarDepartamentos = () => {
-    departamentoService.getDepartamentos()
+    departamentoService.buscarDepartamentos()
         .then(data => departamentos.value = data);
 }
 

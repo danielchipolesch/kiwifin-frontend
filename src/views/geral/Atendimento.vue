@@ -2,6 +2,7 @@
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount } from 'vue';
 import AtendimentoService from '@/service/AtendimentoService';
+import MotivoService from '@/service/MotivoService'
 import AssuntoService from '@/service/AssuntoService';
 import { useToast } from 'primevue/usetoast';
 import {jsPDF} from 'jspdf';
@@ -9,10 +10,12 @@ import {jsPDF} from 'jspdf';
 const toast = useToast();
 
 const atendimentos = ref(null);
+const motivos = ref(null);
 const atendimentoDialog = ref(false);
 const deleteAtendimentoDialog = ref(false);
 const deleteAtendimentosDialog = ref(false);
 const atendimento = ref({});
+const motivo = ref({});
 const selectedAtendimentos = ref(null);
 const dt = ref(null);
 const filters = ref({});
@@ -23,7 +26,7 @@ const statuses = ref([
 	{ label: 'OUTOFSTOCK', value: 'outofstock' }
 ]);
 
-const assuntoService = new AssuntoService();
+const motivoService = new MotivoService();
 const atendimentoService = new AtendimentoService();
 
 const gerarPdf = (atendimento) => {
@@ -39,12 +42,24 @@ const gerarPdf = (atendimento) => {
     doc.output("dataurlnewwindow", `${atendimento.protocolo}.pdf`);
 }
 
+const buscarAtendimentos = () => {
+    atendimentoService.getAtendimentos()
+        .then((data) => (atendimentos.value = data));
+}
+
+const buscarMotivos = () => {
+    motivoService.buscarMotivos()
+        .then((data) => (motivos.value = data));
+}
+
 onBeforeMount(() => {
 	initFilters();
 });
+
 onMounted(() => {
-	atendimentoService.getAtendimentos().then((data) => (atendimentos.value = data));
+	buscarAtendimentos();
 });
+
 const formatCurrency = (value) => {
 	return value.toLocaleString('PT-BR', { style: 'currency', currency: 'BRL' });
 };

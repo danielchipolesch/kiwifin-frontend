@@ -29,7 +29,7 @@ const buscarMotivos = () => {
 }
 
 const buscarDepartamentos = () => {
-    departamentoService.getDepartamentos()
+    departamentoService.buscarDepartamentos()
         .then(data => departamentos.value = data);
 }
 
@@ -233,7 +233,7 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteMotivoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="motivo">Tem certeza que deseja excluir o Motivo "<b>{{ motivo.nome }}"</b>?</span>
+						<span v-if="motivo">Tem certeza que deseja excluir o motivo "<b>{{ motivo.nome }}</b>"?</span>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteMotivoDialog = false" />

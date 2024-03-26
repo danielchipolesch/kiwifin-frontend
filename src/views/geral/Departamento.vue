@@ -19,7 +19,7 @@ const submitted = ref(false);
 const departamentoService = new DepartamentoService();
 
 const buscarDepartamentos = () => {
-    departamentoService.getDepartamentos()
+    departamentoService.buscarDepartamentos()
     .then((data) => (departamentos.value = data));
 }
 
@@ -49,13 +49,13 @@ const salvarDepartamento = () => {
             departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
 			departamento.value.status = departamento.value.status.value ? departamento.value.status.value : departamento.value.status;
 			departamentos.value[findIndexById(departamento.value.idDepartamento)] = departamento.value;
-            departamentoService.updateDepartamento(departamento.value)
+            departamentoService.atualizarDepartamento(departamento.value)
                 .then(() => buscarDepartamentos())
                 .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento atualizado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
             
 		} else {            
-		    departamentoService.createDepartamento(departamento.value)
+		    departamentoService.criarDepartamento(departamento.value)
                 .then(() => buscarDepartamentos())
                 .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
@@ -78,7 +78,7 @@ const confirmaDeletarDepartamento = (deletarDepartamento) => {
 
 const deletarDepartamento = () => {
 	departamentos.value = departamentos.value.filter((val) => val.idDepartamento !== departamento.value.idDepartamento);
-    departamentoService.deleteDepartamento(departamento.value.idDepartamento)
+    departamentoService.deletarDepartamento(departamento.value.idDepartamento)
         .then(toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento Excluído', life: 3000 }))
 	deleteDepartamentoDialog.value = false;
 	departamento.value = {};
@@ -198,7 +198,7 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteDepartamentoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="departamento">Tem certeza que deseja excluir o Departamento <b>{{ departamento.nome }}</b>?</span>
+						<span v-if="departamento">Tem certeza que deseja excluir o departamento "<b>{{ departamento.nome }}</b>"?</span>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteDepartamentoDialog = false" />
