@@ -24,7 +24,7 @@ const motivoService = new MotivoService();
 const departamentoService = new DepartamentoService();
 
 const buscarMotivos = () => {
-    motivoService.getMotivos()
+    motivoService.buscarMotivos()
         .then((data) => (motivos.value = data));
 }
 
@@ -62,12 +62,12 @@ const salvarMotivo = () => {
 			motivo.value.status = motivo.value.status.value ? motivo.value.status.value : motivo.value.status;
             motivo.value.departamento = motivo.value.departamento.value ? motivo.value.departamento.value : motivo.value.departamento;
 			motivos.value[findIndexById(motivo.value.idMotivo)] = motivo.value;
-            motivoService.updateMotivo(motivo.value)
+            motivoService.atualizarMotivo(motivo.value)
                 .then(() => buscarMotivos())
                 .then((res) => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo editado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))            
 		} else {
-            motivoService.createMotivo(motivo.value)
+            motivoService.criarMotivo(motivo.value)
                 .then(() => buscarMotivos())
                 .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo criado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
@@ -91,7 +91,7 @@ const confirmaDeletarMotivo = (deletarMotivo) => {
 
 const deletarMotivo = () => {
 	motivos.value = motivos.value.filter((val) => val.idMotivo !== motivo.value.idMotivo);
-    motivoService.deleteMotivo(motivo.value.idMotivo)
+    motivoService.deletarMotivo(motivo.value.idMotivo)
         .then(() => buscarMotivos())
         .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo Excluído', life: 3000 }));
 	deleteMotivoDialog.value = false;
