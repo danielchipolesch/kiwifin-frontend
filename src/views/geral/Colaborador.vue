@@ -284,7 +284,7 @@ const initFilters = () => {
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
 						<span v-if="colaborador"
-							>Tem certeza que deseja excluir o colaborador "<b>{{ colaborador.nome }}"</b>?</span>
+							>Tem certeza que deseja excluir o colaborador "<b>{{ colaborador.nome }}</b>"?</span>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteColaboradorDialog = false" />
