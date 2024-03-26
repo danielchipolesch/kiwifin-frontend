@@ -6,4 +6,20 @@ export default class ClienteService {
 			.then((res) => res.json())
 			.catch((err) => console.log(err));
 	}
+
+	async atualizarCliente() {
+		return await fetch('http://localhost:8080/api/cliente/editar', {
+			method: 'PUT',
+			body: JSON.stringify(data),
+			headers: { 'Content-type': 'application/json' }
+		})
+			.then((res) => {
+				if (res.status === 400) {
+					throw new Error('Erro inesperado');
+				} else {
+					res.json();
+				}
+			})
+			.catch((err) => console.log(err));
+	}
 }
