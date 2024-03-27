@@ -4,7 +4,8 @@
         {
             "id": "1000",
             "andamento": "Criado",
-            "assunto": "Assunto 1",
+            "motivo": "Motivo 1",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "bamboo-watch.jpg",
             "protocolo": "2024JAN00001",
@@ -16,7 +17,8 @@
         {
             "id": "1001",
             "andamento": "Em Atendimento",
-            "assunto": "Assunto 2",
+            "motivo": "Motivo 2",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 2",
             "imagem": "black-watch.jpg",
             "protocolo": "2024JAN00002",
@@ -28,7 +30,8 @@
         {
             "id": "1002",
             "andamento": "Atendido",
-            "assunto": "Assunto 3",
+            "motivo": "Motivo 3",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 3",
             "imagem": "blue-band.jpg",
             "protocolo": "2024JAN00003",
@@ -40,7 +43,8 @@
         {
             "id": "1003",
             "andamento": "Aguardando Resposta Reivindicação",
-            "assunto": "Assunto 4",
+            "motivo": "Motivo 4",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 4",
             "imagem": "blue-t-shirt.jpg",
             "protocolo": "2024JAN00004",
@@ -52,7 +56,8 @@
         {
             "id": "1004",
             "andamento": "Concluído",
-            "assunto": "Assunto 5",
+            "motivo": "Motivo 5",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 5",
             "imagem": "bracelet.jpg",
             "protocolo": "2024JAN00005",
@@ -64,7 +69,8 @@
         {
             "id": "1005",
             "andamento": "Criado",
-            "assunto": "Assunto 3",
+            "motivo": "Motivo 3",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 6",
             "imagem": "brown-purse.jpg",
             "protocolo": "2024JAN00006",
@@ -76,7 +82,8 @@
         {
             "id": "1006",
             "andamento": "Concluído",
-            "assunto": "Assunto 1",
+            "motivo": "Motivo 1",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 7",
             "imagem": "chakra-bracelet.jpg",
             "protocolo": "2024JAN00007",
@@ -88,7 +95,8 @@
         {
             "id": "1007",
             "andamento": "Criado",
-            "assunto": "Assunto 4",
+            "motivo": "Motivo 4",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 8",
             "imagem": "galaxy-earrings.jpg",
             "protocolo": "2024JAN00008",
@@ -100,7 +108,8 @@
         {
             "id": "1008",
             "andamento": "Em Atendimento",
-            "assunto": "Assunto 7",
+            "motivo": "Motivo 7",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 9",
             "imagem": "game-controller.jpg",
             "protocolo": "2024JAN00009",
@@ -112,7 +121,8 @@
         {
             "id": "1009",
             "andamento": "Criado",
-            "assunto": "Assunto 2",
+            "motivo": "Motivo 2",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver. 10",
             "imagem": "gaming-set.jpg",
             "protocolo": "2024JAN00010",
@@ -124,7 +134,8 @@
         {
             "id": "1010",
             "andamento": "Aguardando Resposta Reivindicação",
-            "assunto": "Assunto 2",
+            "motivo": "Motivo 2",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "gold-phone-case.jpg",
             "protocolo": 24,
@@ -136,7 +147,8 @@
         {
             "id": "1011",
             "andamento": "Aguardando Resposta Reivindicação",
-            "assunto": "Green Earbuds",
+            "motivo": "Green Earbuds",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "green-earbuds.jpg",
             "protocolo": 89,
@@ -148,7 +160,8 @@
         {
             "id": "1012",
             "andamento": "250vm23cc",
-            "assunto": "Green T-Shirt",
+            "motivo": "Green T-Shirt",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "green-t-shirt.jpg",
             "protocolo": 49,
@@ -160,7 +173,8 @@
         {
             "id": "1013",
             "andamento": "fldsmn31b",
-            "assunto": "Grey T-Shirt",
+            "motivo": "Grey T-Shirt",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "grey-t-shirt.jpg",
             "protocolo": 48,
@@ -172,7 +186,8 @@
         {
             "id": "1014",
             "andamento": "waas1x2as",
-            "assunto": "Headphones",
+            "motivo": "Headphones",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "headphones.jpg",
             "protocolo": 175,
@@ -184,7 +199,8 @@
         {
             "id": "1015",
             "andamento": "vb34btbg5",
-            "assunto": "Light Green T-Shirt",
+            "motivo": "Light Green T-Shirt",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "light-green-t-shirt.jpg",
             "protocolo": 49,
@@ -196,7 +212,8 @@
         {
             "id": "1016",
             "andamento": "k8l6j58jl",
-            "assunto": "Lime Band",
+            "motivo": "Lime Band",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "lime-band.jpg",
             "protocolo": 79,
@@ -208,7 +225,8 @@
         {
             "id": "1017",
             "andamento": "v435nn85n",
-            "assunto": "Mini Speakers",
+            "motivo": "Mini Speakers",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "mini-speakers.jpg",
             "protocolo": 85,
@@ -220,7 +238,8 @@
         {
             "id": "1018",
             "andamento": "09zx9c0zc",
-            "assunto": "Painted Phone Case",
+            "motivo": "Painted Phone Case",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "painted-phone-case.jpg",
             "protocolo": 56,
@@ -232,7 +251,8 @@
         {
             "id": "1019",
             "andamento": "mnb5mb2m5",
-            "assunto": "Pink Band",
+            "motivo": "Pink Band",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "pink-band.jpg",
             "protocolo": 79,
@@ -244,7 +264,8 @@
         {
             "id": "1020",
             "andamento": "r23fwf2w3",
-            "assunto": "Pink Purse",
+            "motivo": "Pink Purse",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "pink-purse.jpg",
             "protocolo": 110,
@@ -256,7 +277,8 @@
         {
             "id": "1021",
             "andamento": "pxpzczo23",
-            "assunto": "Purple Band",
+            "motivo": "Purple Band",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "purple-band.jpg",
             "protocolo": 79,
@@ -268,7 +290,8 @@
         {
             "id": "1022",
             "andamento": "2c42cb5cb",
-            "assunto": "Purple Gemstone Necklace",
+            "motivo": "Purple Gemstone Necklace",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "purple-gemstone-necklace.jpg",
             "protocolo": 45,
@@ -280,7 +303,8 @@
         {
             "id": "1023",
             "andamento": "5k43kkk23",
-            "assunto": "Purple T-Shirt",
+            "motivo": "Purple T-Shirt",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "purple-t-shirt.jpg",
             "protocolo": 49,
@@ -292,7 +316,8 @@
         {
             "id": "1024",
             "andamento": "lm2tny2k4",
-            "assunto": "Shoes",
+            "motivo": "Shoes",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "shoes.jpg",
             "protocolo": 64,
@@ -304,7 +329,8 @@
         {
             "id": "1025",
             "andamento": "nbm5mv45n",
-            "assunto": "Sneakers",
+            "motivo": "Sneakers",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "sneakers.jpg",
             "protocolo": 78,
@@ -316,7 +342,8 @@
         {
             "id": "1026",
             "andamento": "zx23zc42c",
-            "assunto": "Teal T-Shirt",
+            "motivo": "Teal T-Shirt",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "teal-t-shirt.jpg",
             "protocolo": 49,
@@ -328,7 +355,8 @@
         {
             "id": "1027",
             "andamento": "acvx872gc",
-            "assunto": "Yellow Earbuds",
+            "motivo": "Yellow Earbuds",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "yellow-earbuds.jpg",
             "protocolo": 89,
@@ -340,7 +368,8 @@
         {
             "id": "1028",
             "andamento": "tx125ck42",
-            "assunto": "Yoga Mat",
+            "motivo": "Yoga Mat",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "yoga-mat.jpg",
             "protocolo": 20,
@@ -352,7 +381,8 @@
         {
             "id": "1029",
             "andamento": "gwuby345v",
-            "assunto": "Yoga Set",
+            "motivo": "Yoga Set",
+            "assunto": " Assunto 1",
             "descricao": "Descrição do atendimento solicitado pelo usuário para que o atendente possa resolver.",
             "imagem": "yoga-set.jpg",
             "protocolo": 20,
