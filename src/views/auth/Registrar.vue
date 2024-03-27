@@ -1,6 +1,7 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
 import { ref, computed, onMounted } from 'vue';
+import router from '@/router/index'
 import RegistroService from '@/service/RegistroService'
 import AppConfig from '@/layout/AppConfig.vue';
 import { useToast } from 'primevue/usetoast';
@@ -31,7 +32,7 @@ submitted.value = true;
             registroService.criarRegistroCliente(formulario.value)               
                 .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
-            new Promise(() => setTimeout(window.location.href = "http://localhost:5173/#/auth/login", 3000))
+                router.push({path: '/auth/login'})
             // formulario.value = {};
             // console.log(formulario.value);
         }
