@@ -1,5 +1,5 @@
-// import jwt from 'jsonwebtoken';
-// const API_URL = 'http://localhost:8080/api';
+import VueJwtDecode from 'vue-jwt-decode';
+import { useRouter } from 'vue-router';
 
 export default class AutenticacaoService {
 	async getHeaders() {
@@ -20,13 +20,17 @@ export default class AutenticacaoService {
 				mode: 'cors'
 			});
 			if (response.status === 400) {
-				throw new Error('Erro inesperado');
+				return localStorage.setItem('isAuthenticated', false);
 			}
 			if (response.status === 200) {
 				// return response.json();
 				const { token } = await response.json();
+				const decodedToken = await VueJwtDecode.decode(token);
 				localStorage.setItem('token', token);
-				return token;
+				localStorage.setItem('isAuthenticated', true);
+				localStorage.setItem('perfil', decodedToken.perfil);
+				console.log(decodedToken);
+				return true;
 			} else {
 				// const { token } = response.json();
 				// localStorage.setItem('token', token);
@@ -49,8 +53,9 @@ export default class AutenticacaoService {
 				throw new Error('Erro inesperado');
 			}
 			if (response.status === 200) {
-				localStorage.setItem('isAuth', true);
-				localStorage.setItem('perfil', 'CLIENTE');
+				console.log(await response.json());
+				localStorage.setItem('isAuthenticated', true);
+				// localStorage.setItem('perfil', 'CLIENTE');
 			} else {
 				response.body;
 				const { token } = response.json();
