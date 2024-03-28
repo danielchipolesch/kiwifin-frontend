@@ -10,11 +10,11 @@ export default class ColaboradorService {
 		}
 	}
 
-	async criarColaborador(body) {
+	async criarColaborador(data) {
 		try {
 			const res = await fetch('http://localhost:8080/api/colaborador/adicionar', {
 				method: 'POST',
-				body: JSON.stringify(body),
+				body: JSON.stringify(data),
 				headers: { 'Content-type': 'application/json' }
 			});
 			if (res.status === 400) {
