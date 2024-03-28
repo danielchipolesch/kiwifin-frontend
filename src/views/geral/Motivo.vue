@@ -10,28 +10,25 @@ const toast = useToast();
 const motivos = ref(null);
 const motivoDialog = ref(false);
 const deleteMotivoDialog = ref(false);
-const motivo = ref({});
-const departamento = ref(null)
-const departamentos = ref([])
+const motivo = ref(null);
+const departamento = ref(null);
+const departamentos = ref([]);
 const selectedMotivos = ref(null);
 const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
 const sliderValue = ref(30);
 
-
 const motivoService = new MotivoService();
 const departamentoService = new DepartamentoService();
 
 const buscarMotivos = () => {
-    motivoService.buscarMotivos()
-        .then((data) => (motivos.value = data));
-}
+	motivoService.buscarMotivos().then((data) => (motivos.value = data));
+};
 
 const buscarDepartamentos = () => {
-    departamentoService.buscarDepartamentos()
-        .then(data => departamentos.value = data);
-}
+	departamentoService.buscarDepartamentos().then((data) => (departamentos.value = data));
+};
 
 onBeforeMount(() => {
 	initFilters();
@@ -39,7 +36,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
 	buscarMotivos();
-    buscarDepartamentos();    
+	buscarDepartamentos();
 });
 
 const openNew = () => {
@@ -57,22 +54,24 @@ const salvarMotivo = () => {
 	submitted.value = true;
 	if (motivo.value.nome && motivo.value.prazo && motivo.value.departamento && motivo.value.status) {
 		if (motivo.value.idMotivo) {
-            motivo.value.nome = motivo.value.nome.value ? motivo.value.nome.value : motivo.value.nome;
-            motivo.value.prazo = motivo.value.prazo.value ? motivo.value.prazo.value : motivo.value.prazo;
+			motivo.value.nome = motivo.value.nome.value ? motivo.value.nome.value : motivo.value.nome;
+			motivo.value.prazo = motivo.value.prazo.value ? motivo.value.prazo.value : motivo.value.prazo;
 			motivo.value.status = motivo.value.status.value ? motivo.value.status.value : motivo.value.status;
-            motivo.value.departamento = motivo.value.departamento.idDepartamento ? motivo.value.departamento.idDepartamento : motivo.value.departamento;
+			motivo.value.departamento = motivo.value.departamento.idDepartamento ? motivo.value.departamento.idDepartamento : motivo.value.departamento;
 			motivos.value[findIndexById(motivo.value.idMotivo)] = motivo.value;
-            motivoService.atualizarMotivo(motivo.value)
-                .then(() => buscarMotivos())
-                .then((res) => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo editado', life: 3000 }))
-                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))            
+			motivoService
+				.atualizarMotivo(motivo.value)
+				.then(() => buscarMotivos())
+				.then((res) => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo editado', life: 3000 }))
+				.catch((err) => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
 		} else {
-            console.log(motivo.value.departamento)
-            motivoService.criarMotivo(motivo.value)
-                .then(() => buscarMotivos())
-                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo criado', life: 3000 }))
-                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
-                motivos.value.push(motivo.value)
+			console.log(motivo.value.departamento);
+			motivoService
+				.criarMotivo(motivo.value)
+				.then(() => buscarMotivos())
+				.then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo criado', life: 3000 }))
+				.catch((err) => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
+			motivos.value.push(motivo.value);
 		}
 		motivoDialog.value = false;
 		motivo.value = {};
@@ -80,8 +79,12 @@ const salvarMotivo = () => {
 };
 
 const editarMotivo = (editarMotivo) => {
+	// console.log(motivo.value.departamento)
 	motivo.value = { ...editarMotivo };
-    // departamento.value = {...editarMotivo.departamento}
+	motivo.value.departamento = motivo.value.departamento.idDepartamento;
+	// departamento.value = {...editarMotivo.departamento}
+	console.log(motivo.value.departamento.idDepartamento);
+
 	motivoDialog.value = true;
 };
 
@@ -92,13 +95,13 @@ const confirmaDeletarMotivo = (deletarMotivo) => {
 
 const deletarMotivo = () => {
 	motivos.value = motivos.value.filter((val) => val.idMotivo !== motivo.value.idMotivo);
-    motivoService.deletarMotivo(motivo.value.idMotivo)
-        .then(() => buscarMotivos())
-        .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo Excluído', life: 3000 }));
+	motivoService
+		.deletarMotivo(motivo.value.idMotivo)
+		.then(() => buscarMotivos())
+		.then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo Excluído', life: 3000 }));
 	deleteMotivoDialog.value = false;
 	motivo.value = {};
 };
-
 
 const findIndexById = (id) => {
 	let index = -1;
@@ -177,8 +180,8 @@ const initFilters = () => {
 					</Column>
 					<Column field="departamentoRelacionado" header="Departamento Relacionado" :sortable="true" headerStyle="width:20%; min-width:8rem;">
 						<template #body="slotProps">
-							<span class="p-column-title">Departamento Relacionado</span>							
-                            {{ slotProps.data.departamento.nome }}
+							<span class="p-column-title">Departamento Relacionado</span>
+							{{ slotProps.data.departamento.nome }}
 						</template>
 					</Column>
 					<Column header="Prazo" headerStyle="width:12%; min-width:10rem;">
@@ -191,7 +194,7 @@ const initFilters = () => {
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
 							<Tag class="mr-2" v-if="slotProps.data.status" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
-                            <Tag class="mr-2" v-if="!slotProps.data.status" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
+							<Tag class="mr-2" v-if="!slotProps.data.status" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
 						</template>
 					</Column>
 					<Column headerStyle="width:10%; min-width:10rem;">
@@ -208,25 +211,46 @@ const initFilters = () => {
 						<InputText id="nome" v-model.trim="motivo.nome" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.nome }" />
 						<small class="p-invalid" v-if="submitted && !motivo.nome">Nome é obrigatório.</small>
 					</div>
-                    <div class="field">
+					<div class="field">
 						<h6 for="status">Status</h6>
-                        <InputSwitch id="status" v-model="motivo.status" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.status }"/>
-                        <small class="p-invalid" v-if="submitted && !motivo.status">Status é obrigatório.</small>
+						<InputSwitch id="status" v-model="motivo.status" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.status }" />
+						<small class="p-invalid" v-if="submitted && !motivo.status">Status é obrigatório.</small>
 					</div>
-                    <div class="field">
-                        <label for="prazo">Prazo (em dias)</label>
-                        <InputText id="prazo" type="number" min="0" v-model.number="motivo.prazo" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.prazo }" />
+					<div class="field">
+						<label for="prazo">Prazo (em dias)</label>
+						<InputText id="prazo" type="number" min="0" v-model.number="motivo.prazo" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.prazo }" />
 						<small class="p-invalid" v-if="submitted && !motivo.prazo">Prazo é obrigatório.</small>
-                    </div>
-                    <div class="field">
-                        <label for="dpt">Departamento</label>
-                        <Dropdown id="dpt" v-if="motivo.departamento" v-model="motivo.departamento.idDepartamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
+					</div>
+					<div class="field">
+						<label for="dpt">Departamento</label>
 
-                        <Dropdown id="dpt" v-else v-model="motivo.departamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
+						<Dropdown
+							id="dpt"
+							v-if="motivo.departamento !== {}"
+							v-model="motivo.departamento"
+							:options="departamentos"
+							optionLabel="nome"
+							optionValue="idDepartamento"
+							placeholder="Escolha um Departamento"
+							required="true"
+							autofocus
+							:class="{ 'p-invalid': submitted && !motivo.departamento }" />
 
-                        <!-- <Dropdown id="dpt" v-model="motivo.departamento" :options="departamentos" optionLabel="nome" placeholder="Select" /> -->
-                        <small class="p-invalid" v-if="submitted && !motivo.departamento">Departamento é obrigatório.</small>
-                    </div>
+						<Dropdown
+							id="dpt"
+							v-else
+							v-model="motivo.departamento.idDepartamento"
+							:options="departamentos"
+							optionLabel="nome"
+							optionValue="idDepartamento"
+							placeholder="Escolha um Departamento"
+							required="true"
+							autofocus
+							:class="{ 'p-invalid': submitted && !motivo.departamento }" />
+
+						<!-- <Dropdown id="dpt" v-model="motivo.departamento" :options="departamentos" optionLabel="nome" placeholder="Select" /> -->
+						<small class="p-invalid" v-if="submitted && !motivo.departamento">Departamento é obrigatório.</small>
+					</div>
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
 						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarMotivo" />
@@ -236,7 +260,10 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteMotivoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="motivo">Tem certeza que deseja excluir o motivo "<b>{{ motivo.nome }}</b>"?</span>
+						<span v-if="motivo"
+							>Tem certeza que deseja excluir o motivo "<b>{{ motivo.nome }}</b
+							>"?</span
+						>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteMotivoDialog = false" />
