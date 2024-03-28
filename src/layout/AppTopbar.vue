@@ -29,6 +29,13 @@ const meuCadastroClick = () => {
     router.push('/cadastro')
 }
 
+const sair = async () => {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('perfil');
+    localStorage.removeItem('token');
+    router.push('/auth/login');
+}
+
 const onSettingsClick = () => {
     topbarMenuActive.value = false;
     router.push('/documentation');
@@ -63,6 +70,7 @@ const isOutsideClicked = (event) => {
 
     return !(sidebarEl.isSameNode(event.target) || sidebarEl.contains(event.target) || topbarEl.isSameNode(event.target) || topbarEl.contains(event.target));
 };
+
 </script>
 
 <template>
@@ -88,13 +96,13 @@ const isOutsideClicked = (event) => {
                 <i class="pi pi-calendar"></i>
                 <span>Calendar</span>
             </button> -->
-            <button @click="onSettingsClick()" class="p-link layout-topbar-button">
-                <i class="pi pi-cog"></i>
-                <span>Settings</span>
-            </button>
             <button @click="meuCadastroClick()" class="p-link layout-topbar-button">
                 <i class="pi pi-user"></i>
                 <span>Profile</span>
+            </button>
+            <button @click="sair()" class="p-link layout-topbar-button">
+                <i class="pi pi-sign-out"></i>
+                <span>Sair</span>
             </button>
         </div>
     </div>
