@@ -12,7 +12,7 @@ const motivoDialog = ref(false);
 const deleteMotivoDialog = ref(false);
 const motivo = ref({});
 const departamento = ref(null)
-const departamentos = ref(null)
+const departamentos = ref([])
 const selectedMotivos = ref(null);
 const dt = ref(null);
 const filters = ref({});
@@ -60,13 +60,14 @@ const salvarMotivo = () => {
             motivo.value.nome = motivo.value.nome.value ? motivo.value.nome.value : motivo.value.nome;
             motivo.value.prazo = motivo.value.prazo.value ? motivo.value.prazo.value : motivo.value.prazo;
 			motivo.value.status = motivo.value.status.value ? motivo.value.status.value : motivo.value.status;
-            motivo.value.departamento = motivo.value.departamento.value ? motivo.value.departamento.value : motivo.value.departamento;
+            motivo.value.departamento = motivo.value.departamento.idDepartamento ? motivo.value.departamento.idDepartamento : motivo.value.departamento;
 			motivos.value[findIndexById(motivo.value.idMotivo)] = motivo.value;
             motivoService.atualizarMotivo(motivo.value)
                 .then(() => buscarMotivos())
                 .then((res) => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo editado', life: 3000 }))
                 .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))            
 		} else {
+            console.log(motivo.value.departamento)
             motivoService.criarMotivo(motivo.value)
                 .then(() => buscarMotivos())
                 .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Motivo criado', life: 3000 }))
@@ -80,7 +81,7 @@ const salvarMotivo = () => {
 
 const editarMotivo = (editarMotivo) => {
 	motivo.value = { ...editarMotivo };
-    departamento.value = {...editarMotivo.departamento}
+    // departamento.value = {...editarMotivo.departamento}
 	motivoDialog.value = true;
 };
 
@@ -221,7 +222,11 @@ const initFilters = () => {
                     </div>
                     <div class="field">
                         <label for="dpt">Departamento</label>
-                        <Dropdown id="dpt" v-model.number="motivo.departamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
+                        <Dropdown id="dpt" v-if="motivo.departamento" v-model="motivo.departamento.idDepartamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
+
+                        <Dropdown id="dpt" v-else v-model="motivo.departamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !motivo.departamento }"/>
+
+                        <!-- <Dropdown id="dpt" v-model="motivo.departamento" :options="departamentos" optionLabel="nome" placeholder="Select" /> -->
                         <small class="p-invalid" v-if="submitted && !motivo.departamento">Departamento é obrigatório.</small>
                     </div>
 					<template #footer>
