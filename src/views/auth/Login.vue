@@ -22,22 +22,18 @@ const logoUrl = computed(() => {
     return `layout/images/${layoutConfig.darkTheme.value ? 'kfg-logo' : 'kfg-logo'}.png`;
 });
 
-const autenticar = () => {
+const autenticar = async () => {
     submitted.value = true;
     formulario.value.cpf = cpfRaw.value.replace(/[^\d]+/g,'');
     if(formulario.value.cpf && formulario.value.password){
         console.log(`CPF: ${formulario.value.cpf} e senha: ${formulario.value.password}. Formulário enviado!`);   
         try {
-            authService.autenticarColaborador(formulario.value)
-                .then((data) => console.log(data))
-                .then(router.push({path: '/home'}))                
-            
+            await authService.autenticarColaborador(formulario.value)            
+            await router.push({path: '/home'})
         } catch (error) {
             console.log(error)
-            toast.add({ severity: 'error', summary: 'Erro', detail: 'Algo deu errado', life: 3000 })
-        }
-   
-            
+            toast.add({ severity: 'error', summary: 'Erro', detail: error.message, life: 3000 })
+        }           
     }
     // authService.autenticarColaborador(formulario.value)
 }
