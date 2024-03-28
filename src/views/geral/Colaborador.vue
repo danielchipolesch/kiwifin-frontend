@@ -200,7 +200,6 @@ const initFilters = () => {
 						</div>
 					</template>
 
-					<Column selectionMode="multiple" headerStyle="width: 3%"></Column>
 					<Column field="nome" header="Nome" :sortable="true" headerStyle="width:25%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>

@@ -4,7 +4,7 @@ import { ref, onMounted, onBeforeMount } from 'vue';
 import ClienteService from '@/service/ClienteService';
 import { useToast } from 'primevue/usetoast';
 import moment from 'moment';
-import {jsPDF} from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 const toast = useToast();
 
@@ -18,21 +18,19 @@ const dt = ref(null);
 const filters = ref({});
 const submitted = ref(false);
 
-
 const clienteService = new ClienteService();
 
 const gerarPdf = (cliente) => {
-    const doc = new jsPDF({
-        orientation: 'p',
-        unit: 'mm',
-        format: 'a4',
-        
-    });
-    // doc.setFontSize(20);
-    doc.addImage("layout/images/kiwifin-logo.png", 'PNG', 50, 15, null, null, null, 'NONE', 0 );
-    doc.text(`Nome: ${cliente.nome}`, 20, 50, {align:"left"});
-    doc.output("dataurlnewwindow", `${cliente.nome}.pdf`);
-}
+	const doc = new jsPDF({
+		orientation: 'p',
+		unit: 'mm',
+		format: 'a4'
+	});
+	// doc.setFontSize(20);
+	doc.addImage('layout/images/kiwifin-logo.png', 'PNG', 50, 15, null, null, null, 'NONE', 0);
+	doc.text(`Nome: ${cliente.nome}`, 20, 50, { align: 'left' });
+	doc.output('dataurlnewwindow', `${cliente.nome}.pdf`);
+};
 
 onBeforeMount(() => {
 	initFilters();
@@ -51,9 +49,9 @@ const formatarString = (value) => {
 };
 
 const formatarData = (data) => {
-    data2 = new Date(data)
-    return data2.toLocaleDateString("pt-BR", {timeZone: 'UTC'})
-}
+	data2 = new Date(data);
+	return data2.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+};
 
 const openNew = () => {
 	cliente.value = {};
@@ -73,14 +71,14 @@ const salvarCliente = () => {
 			cliente.value.cpf = cliente.value.cpf.value ? cliente.value.cpf.value : cliente.value.cpf;
 			cliente.value.descricao = cliente.value.descricao.value ? cliente.value.descricao.value : cliente.value.descricao;
 			clientes.value[findIndexById(cliente.value.id)] = cliente.value;
-            console.log(cliente.value)
+			console.log(cliente.value);
 			toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente atualizado', life: 3000 });
-            clienteDialog.value = false;
-		    cliente.value = {};
+			clienteDialog.value = false;
+			cliente.value = {};
 		}
-        toast.add({ severity: 'error', summary: 'Erro', detail: 'Preenche todos os dados', life: 3000 });
+		toast.add({ severity: 'error', summary: 'Erro', detail: 'Preenche todos os dados', life: 3000 });
 	}
-    toast.add({ severity: 'error', summary: 'Erro', detail: 'Preenche todos os dados', life: 3000 });
+	toast.add({ severity: 'error', summary: 'Erro', detail: 'Preenche todos os dados', life: 3000 });
 };
 
 const editarCliente = (editarCliente) => {
@@ -142,8 +140,7 @@ const initFilters = () => {
 				<Toast />
 				<Toolbar class="mb-4">
 					<template v-slot:start>
-						<div class="my-2">
-						</div>
+						<div class="my-2"></div>
 					</template>
 				</Toolbar>
 
@@ -169,7 +166,6 @@ const initFilters = () => {
 						</div>
 					</template>
 
-					<Column selectionMode="multiple" headerStyle="width: 3%"></Column>
 					<Column field="nome" header="Nome" :sortable="true" headerStyle="width:35%; min-width:10rem;">
 						<template #body="slotProps">
 							<!-- <span class="p-column-title">Status</span> -->
@@ -185,7 +181,7 @@ const initFilters = () => {
 					<Column field="dtNascimento" header="Data Nascimento" :sortable="true" headerStyle="width:20%; min-width:8rem;">
 						<template #body="slotProps">
 							<!-- <span class="p-column-title">Data Nascimento</span> -->
-                            {{ moment(slotProps.data.dataNascimento).format('DD/MM/YYYY') }}
+							{{ moment(slotProps.data.dataNascimento).format('DD/MM/YYYY') }}
 						</template>
 					</Column>
 					<Column field="email" header="E-mail" :sortable="true" headerStyle="width:15%; min-width:10rem;">
@@ -216,57 +212,57 @@ const initFilters = () => {
 				</DataTable>
 
 				<Dialog v-model:visible="clienteDialog" :style="{ width: '900px' }" header="Cliente" :modal="true" class="p-fluid">
-                    <div class="grid p-fluid mt-3">
-                        <div class="field col-12 md:col-6">                            
-                            <label for="nome">Nome</label>
-                            <InputText type="text" id="nome" v-model="cliente.nome" :disabled="false" :class="{ 'p-invalid': submitted && !cliente.nome }"/>
-                            <small class="p-invalid" v-if="submitted && !cliente.nome">Nome é obrigatório.</small>                                                
-                        </div>
-                        <div class="field col-12 md:col-3">
-                            <label for="cpf">CPF</label>
-                            <InputMask id="cpf" mask="999.999.999-99" v-model.trim="cliente.cpf" :disabled="false"></InputMask>
-                        </div>
-                        <div class="field col-12 md:col-3">
-                            <label for="datanascimento">Data de Nascimento</label>
-                            <Calendar inputId="datanascimento" v-model="cliente.dataNascimento" dateFormat="dd/mm/yy" :disabled="false"/>                           
-                        </div>
-                        <div class="field col-12 md:col-6">
-                            <label for="email">E-mail</label>
-                            <InputText type="email" id="email" v-model.trim="cliente.email" />                                
-                        </div>
-                        <div class="field col-12 md:col-3">
-                            <label for="celular">Celular</label>
-                            <InputMask id="celular" mask="(99) 99999-9999" v-model.trim="cliente.celular"></InputMask>
-                        </div>
-                        <div class="field col-12 md:col-3">
-                            <label for="cep">CEP</label>
-                            <InputMask id="cep" mask="99999-999" v-model.trim="cliente.cep" :disabled="false"></InputMask>
-                        </div>
-                        <div class="field col-12 md:col-4">
-                            <span class="p-float-label">
-                                <InputText type="text" id="endereco" v-model="cliente.endereco" :disabled="false"/>
-                                <label for="endereco">Endereço</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-2">
-                            <span class="p-float-label">
-                                <InputText type="text" id="complemento" v-model="cliente.complemento" :disabled="false"/>
-                                <label for="complemento">Complemento</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-5">
-                            <span class="p-float-label">
-                                <InputText type="text" id="cidade" v-model="cliente.cidade" :disabled="false"/>
-                                <label for="cidade">Cidade</label>
-                            </span>
-                        </div>
-                        <div class="field col-12 md:col-1">
-                            <span class="p-float-label">
-                                <InputText type="text" id="uf" v-model.trim="cliente.uf" :disabled="false"/>
-                                <label for="uf">UF</label>
-                            </span>
-                        </div>
-                    </div>
+					<div class="grid p-fluid mt-3">
+						<div class="field col-12 md:col-6">
+							<label for="nome">Nome</label>
+							<InputText type="text" id="nome" v-model="cliente.nome" :disabled="false" :class="{ 'p-invalid': submitted && !cliente.nome }" />
+							<small class="p-invalid" v-if="submitted && !cliente.nome">Nome é obrigatório.</small>
+						</div>
+						<div class="field col-12 md:col-3">
+							<label for="cpf">CPF</label>
+							<InputMask id="cpf" mask="999.999.999-99" v-model.trim="cliente.cpf" :disabled="false"></InputMask>
+						</div>
+						<div class="field col-12 md:col-3">
+							<label for="datanascimento">Data de Nascimento</label>
+							<Calendar inputId="datanascimento" v-model="cliente.dataNascimento" dateFormat="dd/mm/yy" :disabled="false" />
+						</div>
+						<div class="field col-12 md:col-6">
+							<label for="email">E-mail</label>
+							<InputText type="email" id="email" v-model.trim="cliente.email" />
+						</div>
+						<div class="field col-12 md:col-3">
+							<label for="celular">Celular</label>
+							<InputMask id="celular" mask="(99) 99999-9999" v-model.trim="cliente.celular"></InputMask>
+						</div>
+						<div class="field col-12 md:col-3">
+							<label for="cep">CEP</label>
+							<InputMask id="cep" mask="99999-999" v-model.trim="cliente.cep" :disabled="false"></InputMask>
+						</div>
+						<div class="field col-12 md:col-4">
+							<span class="p-float-label">
+								<InputText type="text" id="endereco" v-model="cliente.endereco" :disabled="false" />
+								<label for="endereco">Endereço</label>
+							</span>
+						</div>
+						<div class="field col-12 md:col-2">
+							<span class="p-float-label">
+								<InputText type="text" id="complemento" v-model="cliente.complemento" :disabled="false" />
+								<label for="complemento">Complemento</label>
+							</span>
+						</div>
+						<div class="field col-12 md:col-5">
+							<span class="p-float-label">
+								<InputText type="text" id="cidade" v-model="cliente.cidade" :disabled="false" />
+								<label for="cidade">Cidade</label>
+							</span>
+						</div>
+						<div class="field col-12 md:col-1">
+							<span class="p-float-label">
+								<InputText type="text" id="uf" v-model.trim="cliente.uf" :disabled="false" />
+								<label for="uf">UF</label>
+							</span>
+						</div>
+					</div>
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
 						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarCliente" />
@@ -275,7 +271,9 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteClienteDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="cliente">Tem certeza que deseja excluir o cliente "<b>{{ cliente.nome }}</b>"?</span
+						<span v-if="cliente"
+							>Tem certeza que deseja excluir o cliente "<b>{{ cliente.nome }}</b
+							>"?</span
 						>
 					</div>
 					<template #footer>
