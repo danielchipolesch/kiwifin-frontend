@@ -1,6 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
 
+const token = localStorage.getItem('token');
+const isAuth = localStorage.getItem('isAuthenticated');
+
 const router = createRouter({
 	history: createWebHashHistory(),
 	routes: [
@@ -18,6 +21,18 @@ const router = createRouter({
 			path: '/auth/login',
 			name: 'login',
 			component: () => import('@/views/auth/Login.vue')
+			// beforeEnter: async (_to, _from, next) => {
+			// 	console.log(token);
+			// 	console.log(isAuth);
+			// 	if (token === null || isAuth === false) {
+			// 		localStorage.setItem('isAuthenticated', false);
+			// 		// localStorage.setItem(perfil, false);
+			// 		next();
+			// 	} else if (token !== null || isAuth === true) {
+			// 		localStorage.setItem('isAuthenticated', true);
+			// 		next('/home');
+			// 	}
+			// }
 		},
 		{
 			path: '/auth/access',
@@ -37,41 +52,91 @@ const router = createRouter({
 		{
 			path: '/home',
 			component: AppLayout,
+			// meta: { requiresAuth: true },
 			children: [
 				{
 					path: '/home',
 					name: 'dashboard',
 					component: () => import('@/views/Dashboard.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/cadastro',
 					name: 'cadastro',
 					component: () => import('@/views/geral/Cadastro.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/atendimento',
 					name: 'atendimento',
 					component: () => import('@/views/geral/Atendimento.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/cliente',
 					name: 'cliente',
 					component: () => import('@/views/geral/Cliente.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/colaborador',
 					name: 'colaborador',
 					component: () => import('@/views/geral/Colaborador.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/departamento',
 					name: 'departamento',
 					component: () => import('@/views/geral/Departamento.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/motivo',
 					name: 'motivo',
 					component: () => import('@/views/geral/Motivo.vue')
+					// beforeEnter: async (to, from, next) => {
+					// 	if (token !== null || isAuth === true) {
+					// 		next();
+					// 	} else if (token === null || isAuth === false) {
+					// 		next('/auth/login');
+					// 	}
+					// }
 				},
 				{
 					path: '/uikit/formlayout',
@@ -203,6 +268,39 @@ const router = createRouter({
 			]
 		}
 	]
+});
+
+router.beforeEach((to, from, next) => {
+	const token = localStorage.getItem('token');
+	const isAuth = localStorage.getItem('isAuthenticated');
+	console.log(token);
+	console.log(isAuth);
+	if (to.path === '/auth/login') {
+		if (token === null || isAuth === false) {
+			// localStorage.setItem('isAuthenticated', false);
+			// localStorage.setItem(perfil, false);
+			next();
+		} else if (token !== null || isAuth === true) {
+			// localStorage.setItem('isAuthenticated', true);
+			next('/home');
+		}
+	} else if (
+		to.path.startsWith('/home') ||
+		to.path.startsWith('/cadastro') ||
+		to.path.startsWith('/atendimento') ||
+		to.path.startsWith('/cliente') ||
+		to.path.startsWith('/colaborador') ||
+		to.path.startsWith('/departamento') ||
+		to.path.startsWith('/motivo')
+	) {
+		if (token !== null || isAuth === true) {
+			next();
+		} else if (token === null || isAuth === false) {
+			next('/auth/login');
+		}
+	} else {
+		next();
+	}
 });
 
 export default router;
