@@ -9,40 +9,36 @@ import moment from 'moment';
 
 const toast = useToast();
 
-const departamentos = ref(null)
+const departamentos = ref(null);
 const colaboradores = ref(null);
-const perfis = ref([]);
+const perfis = ref(null);
 const colaboradorDialog = ref(false);
 const deleteColaboradorDialog = ref(false);
 const deleteColaboradoresDialog = ref(false);
-const colaborador = ref({});
-const perfil = ref(null)
-const perfisSelecionados = ref([]);
+const colaborador = ref(null);
+// const perfil = ref(null)
+const perfisSelecionados = ref(null);
 const selectedColaboradores = ref(null);
 const dt = ref(null);
 const filters = ref({});
-const cpf = ref(null)
+const cpf = ref(null);
 const submitted = ref(false);
-
 
 const colaboradorService = new ColaboradorService();
 const departamentoService = new DepartamentoService();
 const perfilService = new PerfilService();
 
 const buscarColaboradores = () => {
-    colaboradorService.buscarColaboradores()
-        .then((data) => (colaboradores.value = data));
-}
+	colaboradorService.buscarColaboradores().then((data) => (colaboradores.value = data));
+};
 
 const buscarDepartamentos = () => {
-    departamentoService.buscarDepartamentos()
-        .then(data => departamentos.value = data);
-}
+	departamentoService.buscarDepartamentos().then((data) => (departamentos.value = data));
+};
 
 const buscarPerfis = () => {
-    perfilService.buscarPerfis()
-        .then(data => perfis.value = data);
-}
+	perfilService.buscarPerfis().then((data) => (perfis.value = data));
+};
 
 onBeforeMount(() => {
 	initFilters();
@@ -50,8 +46,8 @@ onBeforeMount(() => {
 
 onMounted(() => {
 	buscarColaboradores();
-    buscarDepartamentos();
-    buscarPerfis();
+	buscarDepartamentos();
+	buscarPerfis();
 });
 
 const formatarString = (value) => {
@@ -71,31 +67,41 @@ const hideDialog = () => {
 
 const salvarColaborador = () => {
 	submitted.value = true;
-    //  && colaborador.value.cpf && colaborador.value.email && colaborador.value.departamento && colaborador.value.perfil
+	//  && colaborador.value.cpf && colaborador.value.email && colaborador.value.departamento && colaborador.value.perfil
 	if (colaborador.value.nome) {
 		if (colaborador.value.idColaborador) {
-            colaborador.value.nome = colaborador.value.nome.value ? colaborador.value.nome.value : colaborador.value.nome;
-            colaborador.value.email = colaborador.value.email.value ? colaborador.value.email.value : colaborador.value.email;
+			colaborador.value.nome = colaborador.value.nome.value ? colaborador.value.nome.value : colaborador.value.nome;
+			colaborador.value.email = colaborador.value.email.value ? colaborador.value.email.value : colaborador.value.email;
 			colaborador.value.cpf = colaborador.value.cpf.value ? colaborador.value.cpf.value : colaborador.value.cpf;
-            colaborador.value.departamento = colaborador.value.departamento.value ? colaborador.value.departamento.value : colaborador.value.departamento;
-            colaborador.value.perfil = perfisSelecionados.value ? perfisSelecionados.value : colaborador.value.perfil;
-			colaboradores.value[findIndexById(colaborador.value.id)] = colaborador.value;
-            colaboradorService.atualizarColaborador(colaborador.value)
-                .then(() => buscarColaboradores())
-                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador atualizado', life: 3000 }))
-                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
+			colaborador.value.departamento = colaborador.value.departamento.idDepartamento ? colaborador.value.departamento.idDepartamento : colaborador.value.departamento;
+
+			const perfisSelecionados = [];
+			colaborador.value.perfil.forEach((element) => {
+				perfisSelecionados.push(element.idPerfil);
+			});
+			colaborador.value.perfil = perfisSelecionados;
+			colaboradores.value[findIndexById(colaborador.value.idColaborador)] = colaborador.value;
+			colaboradorService
+				.atualizarColaborador(colaborador.value)
+				.then(() => buscarColaboradores())
+				.then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador atualizado', life: 3000 }))
+				.catch((err) => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
 		} else {
-            colaborador.value.perfil = perfisSelecionados.value ? perfisSelecionados.value : colaborador.value.perfil;
-			colaboradorService.criarColaborador(colaborador.value)
-                .then(() => buscarColaboradores())
-                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador criado', life: 3000 }))
-                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
-            console.log(colaborador.value)
+			const perfisSelecionados = [];
+			colaborador.value.perfil.forEach((element) => {
+				perfisSelecionados.push(element.idPerfil);
+			});
+			colaborador.value.perfil = perfisSelecionados;
+			colaboradorService
+				.criarColaborador(colaborador.value)
+				.then(() => buscarColaboradores())
+				.then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador criado', life: 3000 }))
+				.catch((err) => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
 			// colaboradores.value.push(colaborador.value);
 			// toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador criado', life: 3000 });
-		}        
-			// colaboradores.value.push(colaborador.value);
-			// toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador criado', life: 3000 });
+		}
+		// colaboradores.value.push(colaborador.value);
+		// toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador criado', life: 3000 });
 		colaboradorDialog.value = false;
 		colaborador.value = {};
 	}
@@ -103,8 +109,10 @@ const salvarColaborador = () => {
 
 const editarColaborador = (editarColaborador) => {
 	colaborador.value = { ...editarColaborador };
-    perfisSelecionados.value = colaborador.value.perfil
-	console.log(perfisSelecionados.value);
+	console.log(editarColaborador);
+	colaborador.value.departamento = colaborador.value.departamento.idDepartamento;
+	// perfisSelecionados.value = colaborador.value.perfil
+	console.log(colaborador.value.perfil);
 	colaboradorDialog.value = true;
 };
 
@@ -115,8 +123,7 @@ const confirmaDeletarColaborador = (editarColaborador) => {
 
 const deletarColaborador = () => {
 	colaboradores.value = colaboradores.value.filter((val) => val.idColaborador !== colaborador.value.idColaborador);
-    colaboradorService.deletarColaborador(colaborador.value.idColaborador)
-        .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador Excluído', life: 3000 }))
+	colaboradorService.deletarColaborador(colaborador.value.idColaborador).then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador Excluído', life: 3000 }));
 	deleteColaboradorDialog.value = false;
 	colaborador.value = {};
 };
@@ -163,13 +170,13 @@ const initFilters = () => {
 		<div class="col-12">
 			<div class="surface-card p-4 shadow-1 border-round mb-5">
 				<Toast />
-                    <Toolbar class="mb-4">
-                        <template v-slot:start>
-                            <div class="my-2">
-                                <Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
-                            </div>
-                        </template>
-                    </Toolbar>
+				<Toolbar class="mb-4">
+					<template v-slot:start>
+						<div class="my-2">
+							<Button label="Novo" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
+						</div>
+					</template>
+				</Toolbar>
 
 				<DataTable
 					ref="dt"
@@ -209,7 +216,7 @@ const initFilters = () => {
 					<Column field="dtNascimento" header="Data Nascimento" :sortable="true" headerStyle="width:15%; min-width:8rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Data Nascimento</span>
-                            {{ moment(slotProps.data.dataNascimento).format('DD/MM/YYYY') }}
+							{{ moment(slotProps.data.dataNascimento).format('DD/MM/YYYY') }}
 						</template>
 					</Column>
 					<Column field="email" header="E-mail" :sortable="true" headerStyle="width:15%; min-width:10rem;">
@@ -247,34 +254,108 @@ const initFilters = () => {
 						<InputText id="nome" v-model.trim="colaborador.nome" required="true" autofocus :class="{ 'p-invalid': submitted && !colaborador.nome }" />
 						<small class="p-invalid" v-if="submitted && !colaborador.nome">Nome é obrigatório.</small>
 					</div>
-                    <div class="field">
+					<div class="field">
 						<label for="cpf">CPF</label>
 						<InputText id="cpf" v-model.trim="colaborador.cpf" required="true" autofocus :class="{ 'p-invalid': submitted && !colaborador.cpf }" />
 						<small class="p-invalid" v-if="submitted && !colaborador.cpf">CPF é obrigatório.</small>
 					</div>
-                    <div class="field">
+					<div class="field">
 						<label for="email">E-mail</label>
 						<InputText id="email" type="email" v-model.trim="colaborador.email" required="true" autofocus :class="{ 'p-invalid': submitted && !colaborador.email }" />
 						<small class="p-invalid" v-if="submitted && !colaborador.email">E-mail é obrigatório.</small>
 					</div>
-                    <div class="field" v-if="!colaborador.idColaborador">
+					<div class="field" v-if="!colaborador.idColaborador">
 						<label for="senha">Senha</label>
 						<InputText id="senha" type="password" v-model.trim="colaborador.senha" required="true" autofocus :class="{ 'p-invalid': submitted && !colaborador.senha }" />
 						<small class="p-invalid" v-if="submitted && !colaborador.email">Senha é obrigatória.</small>
 					</div>
-                    <div class="field">
+					<!-- <div class="field">
                         <label for="departamento">Departamento</label>
                         <Dropdown id="departamento" v-model.number="colaborador.departamento" :options="departamentos" optionLabel="nome" optionValue="idDepartamento" placeholder="Escolha um Departamento" required="true" autofocus :class="{ 'p-invalid': submitted && !colaborador.departamento }"/>
                         <small class="p-invalid" v-if="submitted && !colaborador.departamento">Departamento é obrigatório.</small>
-                    </div>
-                    <div class="field">
-                        <label for="perfil">Perfil</label>
-                        <MultiSelect id="perfil" v-if="!colaborador.perfil" v-model="perfisSelecionados" :options="perfis" optionLabel="descricao" optionValue="idPerfil" placeholder="Selecione os perfis" :filter="true" :class="{ 'p-invalid': submitted && !perfisSelecionados }">
-                        </MultiSelect>
-                        <MultiSelect id="perfil" v-if="colaborador.perfil" v-model="perfisSelecionados.descricao" :options="perfis" optionLabel="descricao" optionValue="idPerfil" placeholder="Selecione os perfis" :filter="true" :class="{ 'p-invalid': submitted && !perfisSelecionados }">
-                        </MultiSelect>
-                        <small class="p-invalid" v-if="submitted && !perfisSelecionados">Perfil é obrigatório.</small>
-                    </div>
+                        
+                    </div> -->
+					<div class="field">
+						<label for="dpt">Departamento</label>
+
+						<Dropdown
+							id="dpt"
+							v-if="colaborador.departamento !== {}"
+							v-model="colaborador.departamento"
+							:options="departamentos"
+							optionLabel="nome"
+							optionValue="idDepartamento"
+							placeholder="Escolha um Departamento"
+							required="true"
+							autofocus
+							:class="{ 'p-invalid': submitted && !colaborador.departamento }" />
+
+						<Dropdown
+							id="dpt"
+							v-else
+							v-model="colaborador.departamento.idDepartamento"
+							:options="departamentos"
+							optionLabel="nome"
+							optionValue="idDepartamento"
+							placeholder="Escolha um Departamento"
+							required="true"
+							autofocus
+							:class="{ 'p-invalid': submitted && !colaborador.departamento }" />
+
+						<!-- <select id="dpt" v-model="colaborador.departamento">
+							<option v-for="departamento in departamentos" :key="departamento.idDepartamento" :value="departamento.idDepartamento">
+								{{ departamento.nome }}
+							</option>
+						</select> -->
+
+						<!-- <Dropdown id="dpt" v-model="motivo.departamento" :options="departamentos" optionLabel="nome" placeholder="Select" /> -->
+						<small class="p-invalid" v-if="submitted && !colaborador.departamento">Departamento é obrigatório.</small>
+					</div>
+					<div class="field">
+						<label for="perfil">Perfil</label>
+						<!-- <MultiSelect
+							id="perfil"
+							v-if="colaborador.perfil !== []"
+							v-model="colaborador.perfil"
+							:options="perfis"
+							optionLabel="descricao"
+							optionValue="idPerfil"
+							placeholder="Selecione os perfis"
+							:filter="true"
+							:class="{ 'p-invalid': submitted && !colaborador.perfil }">
+						</MultiSelect>
+
+						<MultiSelect
+							id="perfil"
+							v-else
+							v-model="colaborador.perfil"
+							:options="perfis"
+							optionLabel="descricao"
+							optionValue="idPerfil"
+							placeholder="Selecione os perfis"
+							:filter="true"
+							:class="{ 'p-invalid': submitted && !colaborador.perfil }">
+						</MultiSelect> -->
+						<small class="p-invalid" v-if="submitted && !colaborador.perfil">Perfil é obrigatório.</small>
+
+						<MultiSelect v-model="colaborador.perfil" :options="perfis" optionLabel="descricao" placeholder="Selecione os perfis" :filter="true">
+							<template #value="slotProps">
+								<div class="inline-flex align-items-center py-1 px-2 bg-primary text-primary border-round mr-2" v-for="option of slotProps.value" :key="option.idPerfil">
+									<span style="height: 12px" />
+									<div>{{ option.descricao }}</div>
+								</div>
+								<template v-if="!slotProps.value || slotProps.value.length === 0">
+									<div class="p-1">Selecione os perfis</div>
+								</template>
+							</template>
+							<template #option="slotProps">
+								<div class="flex align-items-center">
+									<span style="width: 5px; height: 12px" />
+									<div>{{ slotProps.option.descricao }}</div>
+								</div>
+							</template>
+						</MultiSelect>
+					</div>
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
 						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarColaborador" />
@@ -284,7 +365,9 @@ const initFilters = () => {
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
 						<span v-if="colaborador"
-							>Tem certeza que deseja excluir o colaborador "<b>{{ colaborador.nome }}</b>"?</span>
+							>Tem certeza que deseja excluir o colaborador "<b>{{ colaborador.nome }}</b
+							>"?</span
+						>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteColaboradorDialog = false" />
