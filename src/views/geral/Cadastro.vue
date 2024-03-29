@@ -13,23 +13,25 @@ const resposta = ref('');
 
 const cadastroService = new CadastroService();
 
-onMounted(() => {
-	cadastroService.getCadastro()
-        .then(resposta => {
-            nomePessoa.value = resposta[0].nome.toUpperCase(),
-            cpf.value = resposta[0].cpf,            
-            dataNascimento.value = resposta[0].dtNascimento,
-            email.value = resposta[0].email,
-            celular.value = resposta[0].celular,
-            cep.value = resposta[0].cep,
-            logradouro.value = resposta[0].endereco.toUpperCase(),
-            complemento.value = resposta[0].complemento.toUpperCase(),
-            cidade.value = resposta[0].cidade.toUpperCase(),
-            unidadeFederativa.value = resposta[0].uf.toUpperCase(),
-            senhaAtual.value = resposta[0].senha
-        })
-});
+const buscarPessoa = () => {
+	cadastroService.getCadastro().then((resposta) => {
+		(nomePessoa.value = resposta[0].nome.toUpperCase()),
+			(cpf.value = resposta[0].cpf),
+			(dataNascimento.value = resposta[0].dtNascimento),
+			(email.value = resposta[0].email),
+			(celular.value = resposta[0].celular),
+			(cep.value = resposta[0].cep),
+			(logradouro.value = resposta[0].endereco.toUpperCase()),
+			(complemento.value = resposta[0].complemento.toUpperCase()),
+			(cidade.value = resposta[0].cidade.toUpperCase()),
+			(unidadeFederativa.value = resposta[0].uf.toUpperCase()),
+			(senhaAtual.value = resposta[0].senha);
+	});
+};
 
+onMounted(() => {
+	buscarPessoa();
+});
 
 watch(password1, password2, () => {
 	if (password1.value !== password2.value) {
@@ -38,7 +40,6 @@ watch(password1, password2, () => {
 		resposta.value = 'Senhas são iguais';
 	}
 });
-
 
 const data = ref(null);
 const nomePessoa = ref(null);
@@ -52,7 +53,6 @@ const complemento = ref(null);
 const cidade = ref(null);
 const unidadeFederativa = ref(null);
 const senhaAtual = ref(null);
-
 </script>
 
 <template>
@@ -67,7 +67,7 @@ const senhaAtual = ref(null);
 		<div class="grid p-fluid mt-3">
 			<div class="field col-12 md:col-6">
 				<span class="p-float-label">
-					<InputText type="text" id="nome" v-model="nomePessoa" :disabled="true"/>
+					<InputText type="text" id="nome" v-model="nomePessoa" :disabled="true" />
 					<label for="nome">Nome</label>
 				</span>
 			</div>
@@ -79,7 +79,7 @@ const senhaAtual = ref(null);
 			</div>
 			<div class="field col-12 md:col-3">
 				<span class="p-float-label">
-					<Calendar inputId="datanascimento" v-model="dataNascimento" dateFormat="dd/mm/yy" :disabled="true"/>
+					<Calendar inputId="datanascimento" v-model="dataNascimento" dateFormat="dd/mm/yy" :disabled="true" />
 					<label for="datanascimento">Data de Nascimento</label>
 				</span>
 			</div>
@@ -101,27 +101,27 @@ const senhaAtual = ref(null);
 					<label for="cep">CEP</label>
 				</span>
 			</div>
-            <div class="field col-12 md:col-4">
+			<div class="field col-12 md:col-4">
 				<span class="p-float-label">
-					<InputText type="text" id="endereco" v-model="logradouro" :disabled="true"/>
+					<InputText type="text" id="endereco" v-model="logradouro" :disabled="true" />
 					<label for="endereco">Endereço</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-2">
 				<span class="p-float-label">
-					<InputText type="text" id="complemento" v-model="complemento" :disabled="true"/>
+					<InputText type="text" id="complemento" v-model="complemento" :disabled="true" />
 					<label for="complemento">Complemento</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-5">
 				<span class="p-float-label">
-					<InputText type="text" id="cidade" v-model="cidade" :disabled="true"/>
+					<InputText type="text" id="cidade" v-model="cidade" :disabled="true" />
 					<label for="cidade">Cidade</label>
 				</span>
 			</div>
 			<div class="field col-12 md:col-1">
 				<span class="p-float-label">
-					<InputText type="text" id="uf" v-model="unidadeFederativa" :disabled="true"/>
+					<InputText type="text" id="uf" v-model="unidadeFederativa" :disabled="true" />
 					<label for="uf">UF</label>
 				</span>
 			</div>
@@ -141,7 +141,7 @@ const senhaAtual = ref(null);
 		<div class="grid p-fluid mt-3">
 			<div class="field col-12 md:col-4">
 				<span class="p-float-label">
-					<InputText type="password" id="senhaatual" v-model="senhaAtual" :disabled="true"/>
+					<InputText type="password" id="senhaatual" v-model="senhaAtual" :disabled="true" />
 					<label for="senhaatual">Senha atual</label>
 				</span>
 			</div>
@@ -160,9 +160,9 @@ const senhaAtual = ref(null);
 				<small>{{ resposta }} senhas não conferem</small>
 			</div>
 		</div>
-        <div class="flex flex-row-reverse flex-wrap">
-            <Button label="Alterar" class="p-button-raised mr-2 mb-2"/>
-        </div>
+		<div class="flex flex-row-reverse flex-wrap">
+			<Button label="Alterar" class="p-button-raised mr-2 mb-2" />
+		</div>
 	</div>
 
 	<AppConfig simple />
