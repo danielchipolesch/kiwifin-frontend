@@ -67,6 +67,8 @@ const itemClick = (event, item) => {
 const checkActiveRoute = (item) => {
 	return route.path === item.to;
 };
+
+const perfil = localStorage.getItem('perfil');
 </script>
 
 <template>
@@ -77,7 +79,17 @@ const checkActiveRoute = (item) => {
 			<span class="layout-menuitem-text">{{ item.label }}</span>
 			<i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
 		</a>
-		<router-link v-if="item.to && !item.items && item.visible !== false" @click="itemClick($event, item, index)" :class="[item.class, { 'active-route': checkActiveRoute(item) }]" tabindex="0" :to="item.to">
+		<router-link
+			v-if="item.to && !item.items && item.visible !== false && perfil.includes('ADMINISTRADOR') && item.perfilAutorizado === 'ADMINISTRADOR'"
+			@click="itemClick($event, item, index)"
+			:class="[item.class, { 'active-route': checkActiveRoute(item) }]"
+			tabindex="0"
+			:to="item.to">
+			<i :class="item.icon" class="layout-menuitem-icon"></i>
+			<span class="layout-menuitem-text">{{ item.label }}</span>
+			<i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
+		</router-link>
+		<router-link v-if="item.to && !item.items && item.visible !== false && item.perfilAutorizado === 'TODOS'" @click="itemClick($event, item, index)" :class="[item.class, { 'active-route': checkActiveRoute(item) }]" tabindex="0" :to="item.to">
 			<i :class="item.icon" class="layout-menuitem-icon"></i>
 			<span class="layout-menuitem-text">{{ item.label }}</span>
 			<i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>

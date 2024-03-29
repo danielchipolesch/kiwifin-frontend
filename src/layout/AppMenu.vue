@@ -7,12 +7,12 @@ const model = ref([
 	{
 		label: 'Geral',
 		items: [
-			{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' },
-			{ label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento' },
-			{ label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente' },
-			{ label: 'Colaborador', icon: 'pi pi-fw pi-verified', to: '/colaborador' },
-			{ label: 'Departamento', icon: 'pi pi-fw pi-sitemap', to: '/departamento' },
-			{ label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo' }
+			{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home', perfilAutorizado: 'TODOS' },
+			{ label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento', perfilAutorizado: 'TODOS' },
+			{ label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente', perfilAutorizado: 'ADMINISTRADOR' },
+			{ label: 'Colaborador', icon: 'pi pi-fw pi-verified', to: '/colaborador', perfilAutorizado: 'ADMINISTRADOR' },
+			{ label: 'Departamento', icon: 'pi pi-fw pi-sitemap', to: '/departamento', perfilAutorizado: 'ADMINISTRADOR' },
+			{ label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo', perfilAutorizado: 'ADMINISTRADOR' }
 		]
 	}
 	// {
