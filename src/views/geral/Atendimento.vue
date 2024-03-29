@@ -7,6 +7,7 @@ import AssuntoService from '@/service/AssuntoService';
 import { useToast } from 'primevue/usetoast';
 import { jsPDF } from 'jspdf';
 import VueJwtDecode from 'vue-jwt-decode';
+import moment from 'moment';
 
 const toast = useToast();
 
@@ -43,8 +44,23 @@ const gerarPdf = (atendimento) => {
 		format: 'a4'
 	});
 	// doc.setFontSize(20);
-	doc.addImage('layout/images/kiwifin-logo.png', 'PNG', 50, 15, null, null, null, 'NONE', 0);
-	doc.text(`Situação atual: ${atendimento.andamento}`, 20, 50, { align: 'left' });
+	doc.addImage('layout/images/kiwifin-logo.png', 'PNG', 50, 10, null, null, null, 'NONE', 0);
+	doc.text(`Resumo de Atendimento`, 75, 45, { align: 'left' });
+	doc.text(`Protocolo: ${atendimento.protocolo}`, 20, 70, { align: 'left' });
+	doc.text(`Situação: ${atendimento.statusAndamento}`, 20, 80, { align: 'left' });
+	doc.text(`Data de Abertura: ${moment(atendimento.dataProtocolo).format('DD/MM/YYYY')}`, 20, 90, { align: 'left' });
+	doc.text(`Assunto: ${atendimento.assunto}`, 20, 100, { align: 'left' });
+	doc.text(`Detalhamento da Solicitação: ${atendimento.detalhamentoSolicitacao}`, 20, 110, { align: 'left' });
+	if (atendimento.detalhamentoEmpresa !== null) {
+		doc.text(`Atendimento da Empresa: ${atendimento.detalhamentoEmpresa}`, 20, 120, { align: 'left' });
+	}
+	doc.addPage();
+	doc.text(`Histórico`, 92, 30, { align: 'left' });
+	let altura = 50;
+	atendimento.historico.forEach((element) => {
+		doc.text(`${moment(element.dataAlteracao).format('DD/MM/YYYY')} - ${element.textoObservacao}`, 20, altura, { align: 'left' });
+		altura += 10;
+	});
 	doc.output('dataurlnewwindow', `${atendimento.protocolo}.pdf`);
 };
 
