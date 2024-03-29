@@ -19,9 +19,8 @@ const submitted = ref(false);
 const departamentoService = new DepartamentoService();
 
 const buscarDepartamentos = () => {
-    departamentoService.buscarDepartamentos()
-    .then((data) => (departamentos.value = data));
-}
+	departamentoService.buscarDepartamentos().then((data) => (departamentos.value = data));
+};
 
 onBeforeMount(() => {
 	initFilters();
@@ -46,20 +45,21 @@ const salvarDepartamento = () => {
 	submitted.value = true;
 	if (departamento.value.nome && departamento.value.status) {
 		if (departamento.value.idDepartamento) {
-            departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
+			departamento.value.nome = departamento.value.nome.value ? departamento.value.nome.value : departamento.value.nome;
 			departamento.value.status = departamento.value.status.value ? departamento.value.status.value : departamento.value.status;
 			departamentos.value[findIndexById(departamento.value.idDepartamento)] = departamento.value;
-            departamentoService.atualizarDepartamento(departamento.value)
-                .then(() => buscarDepartamentos())
-                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento atualizado', life: 3000 }))
-                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
-            
-		} else {            
-		    departamentoService.criarDepartamento(departamento.value)
-                .then(() => buscarDepartamentos())
-                .then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 }))
-                .catch(err => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }))
-                departamentos.value.push(departamento.value)
+			departamentoService
+				.atualizarDepartamento(departamento.value)
+				.then(() => buscarDepartamentos())
+				.then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento atualizado', life: 3000 }))
+				.catch((err) => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
+		} else {
+			departamentoService
+				.criarDepartamento(departamento.value)
+				.then(() => buscarDepartamentos())
+				.then(() => toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento criado', life: 3000 }))
+				.catch((err) => toast.add({ severity: 'error', summary: 'Erro', detail: err.message, life: 3000 }));
+			departamentos.value.push(departamento.value);
 		}
 		departamentoDialog.value = false;
 		departamento.value = {};
@@ -78,12 +78,10 @@ const confirmaDeletarDepartamento = (deletarDepartamento) => {
 
 const deletarDepartamento = () => {
 	departamentos.value = departamentos.value.filter((val) => val.idDepartamento !== departamento.value.idDepartamento);
-    departamentoService.deletarDepartamento(departamento.value.idDepartamento)
-        .then(toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento Excluído', life: 3000 }))
+	departamentoService.deletarDepartamento(departamento.value.idDepartamento).then(toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Departamento Excluído', life: 3000 }));
 	deleteDepartamentoDialog.value = false;
 	departamento.value = {};
 };
-
 
 const findIndexById = (id) => {
 	let index = -1;
@@ -165,8 +163,8 @@ const initFilters = () => {
 					<Column field="status" header="Status" :sortable="true" headerStyle="width:25%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Status</span>
-                            <Tag class="mr-2" v-if="slotProps.data.status" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
-                            <Tag class="mr-2" v-if="!slotProps.data.status" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
+							<Tag class="mr-2" v-if="slotProps.data.status" icon="pi pi-check" severity="primary" value="Ativo"></Tag>
+							<Tag class="mr-2" v-if="!slotProps.data.status" icon="pi pi-times" severity="danger" value="Inativo"></Tag>
 						</template>
 					</Column>
 					<Column headerStyle="width:5%; min-width:10rem;">
@@ -183,11 +181,11 @@ const initFilters = () => {
 						<InputText id="nome" v-model.trim="departamento.nome" required="true" autofocus :class="{ 'p-invalid': submitted && !departamento.nome }" />
 						<small class="p-invalid" v-if="submitted && !departamento.nome">Nome é obrigatório.</small>
 					</div>
-                    <br>
+					<br />
 					<div class="field">
 						<h6 for="status">Status</h6>
-                        <InputSwitch id="status" v-model="departamento.status" required="true" autofocus :class="{ 'p-invalid': submitted && !departamento.status }"/><br>
-                        <small class="p-invalid" v-if="submitted && !departamento.status">Status é obrigatório.</small>
+						<InputSwitch id="status" v-model="departamento.status" required="true" autofocus :class="{ 'p-invalid': submitted && !departamento.status }" /><br />
+						<small class="p-invalid" v-if="submitted && !departamento.status">Status é obrigatório.</small>
 					</div>
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
@@ -198,7 +196,10 @@ const initFilters = () => {
 				<Dialog v-model:visible="deleteDepartamentoDialog" :style="{ width: '450px' }" header="Pense bem!" :modal="true">
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-						<span v-if="departamento">Tem certeza que deseja excluir o departamento "<b>{{ departamento.nome }}</b>"?</span>
+						<span v-if="departamento"
+							>Tem certeza que deseja excluir o departamento "<b>{{ departamento.nome }}</b
+							>"?</span
+						>
 					</div>
 					<template #footer>
 						<Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteDepartamentoDialog = false" />
