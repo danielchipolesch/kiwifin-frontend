@@ -10,11 +10,11 @@ const model = ref([
 			{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/home' },
 			{ label: 'Atendimento', icon: 'pi pi-fw pi-folder-open', to: '/atendimento' },
 			{ label: 'Cliente', icon: 'pi pi-fw pi-users', to: '/cliente' },
-            { label: 'Colaborador', icon: 'pi pi-fw pi-verified', to: '/colaborador' },
-            { label: 'Departamento', icon: 'pi pi-fw pi-sitemap', to: '/departamento' },
+			{ label: 'Colaborador', icon: 'pi pi-fw pi-verified', to: '/colaborador' },
+			{ label: 'Departamento', icon: 'pi pi-fw pi-sitemap', to: '/departamento' },
 			{ label: 'Motivo', icon: 'pi pi-fw pi-database', to: '/motivo' }
 		]
-	},
+	}
 	// {
 	// 	label: 'UI Components',
 	// 	items: [
