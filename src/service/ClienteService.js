@@ -7,6 +7,14 @@ export default class ClienteService {
 			.catch((err) => console.log(err));
 	}
 
+	async buscarClientePorCpf(cpf) {
+		return fetch(`http://localhost:8080/api/cliente/pesquisar/cpf=${cpf}`, {
+			method: 'GET'
+		})
+			.then((res) => res.json())
+			.catch((err) => console.log(err));
+	}
+
 	async atualizarCliente() {
 		return await fetch('http://localhost:8080/api/cliente/editar', {
 			method: 'PUT',
