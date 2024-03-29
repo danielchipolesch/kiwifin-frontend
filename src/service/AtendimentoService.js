@@ -57,4 +57,58 @@ export default class AtendimentoService {
 			return console.log(err);
 		}
 	}
+
+	async fecharSolicitacao(data) {
+		try {
+			const res = await fetch('http://localhost:8080/api/atendimento/atendente/fechar', {
+				method: 'PUT',
+				body: JSON.stringify(data),
+				headers: { 'Content-type': 'application/json' }
+			});
+			if (res.status === 400) {
+				throw new Error('Erro inesperado 1');
+			}
+			if (res.status === 200) {
+				res.json();
+			}
+		} catch (err) {
+			return console.log(err);
+		}
+	}
+
+	async reabrirSolicitacao(idAtendimento, justificativa) {
+		try {
+			const res = await fetch(`http://localhost:8080/api/atendimento/reabrir/${idAtendimento}/${justificativa}`, {
+				method: 'PUT',
+				// body: JSON.stringify(data),
+				headers: { 'Content-type': 'application/json' }
+			});
+			if (res.status === 400) {
+				throw new Error('Erro inesperado 1');
+			}
+			if (res.status === 200) {
+				res.json();
+			}
+		} catch (err) {
+			return console.log(err);
+		}
+	}
+
+	async encerrarSolicitacao(data) {
+		try {
+			const res = await fetch('http://localhost:8080/api/atendimento/encerrar', {
+				method: 'PUT',
+				body: JSON.stringify(data),
+				headers: { 'Content-type': 'application/json' }
+			});
+			if (res.status === 400) {
+				throw new Error('Erro inesperado 1');
+			}
+			if (res.status === 200) {
+				res.json();
+			}
+		} catch (err) {
+			return console.log(err);
+		}
+	}
 }

@@ -92,8 +92,14 @@ const salvarAtendimento = () => {
 	// && atendimento.value.assunto.trim()
 	if (atendimento.value.assunto && atendimento.value.detalhamentoSolicitacao) {
 		if (atendimento.value.idAtendimento) {
-			if ((atendimento.value.detalhamentoEmpresa && perfil === 'ATENDENTE') || perfil === 'SUPERVISOR_QUALIDADE') {
-				detalhamentoEmpresa.value = { idAtendimento: atendimento.value.idAtendimento, atendente: idColaborador };
+			if ((atendimento.value.detalhamentoEmpresa && perfil.includes('ATENDENTE')) || perfil.includes('SUPERVISOR_QUALIDADE')) {
+				const idColaborador = decodedToken.id;
+				detalhamentoEmpresaEspecifico.value = { detalhamentoEmpresa: atendimento.value.detalhamentoEmpresa, idAtendimento: atendimento.value.idAtendimento, atendente: idColaborador };
+				console.log(atendimento.value);
+				console.log(detalhamentoEmpresaEspecifico.value);
+				atendimentoService.fecharSolicitacao(detalhamentoEmpresaEspecifico.value);
+				buscarAtendimentos();
+				toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Atendimento concluído', life: 3000 });
 			} else if (!atendimento.value.detalhamentoEmpresa) {
 				atendimento.value.assunto = atendimento.value.assunto.value ? atendimento.value.assunto.value : atendimento.value.assunto;
 				atendimento.value.detalhamentoSolicitacao = atendimento.value.detalhamentoSolicitacao.value ? atendimento.value.detalhamentoSolicitacao.value : atendimento.value.detalhamentoSolicitacao;
@@ -116,7 +122,7 @@ const salvarAtendimento = () => {
 
 const editarAtendimento = (editarAtendimento) => {
 	atendimento.value = { ...editarAtendimento };
-	console.log(atendimento.motivo);
+	console.log(atendimento.value.idAtendimento);
 	atendimentoDialog.value = true;
 };
 
@@ -127,7 +133,7 @@ const confirmAssumirAtendimento = (assumirAtendimento) => {
 };
 
 const assumirAtendimento = async () => {
-	if (perfil === 'ATENDENTE') {
+	if (perfil.includes('ATENDENTE')) {
 		const idColaborador = decodedToken.id;
 		atendimentoEspecifico.value = { idAtendimento: atendimento.value.idAtendimento, atendente: idColaborador };
 		console.log(atendimentoEspecifico.value);
@@ -137,6 +143,22 @@ const assumirAtendimento = async () => {
 		toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Atendimento assumido', life: 3000 });
 	}
 	assumirAtendimentoDialog.value = false;
+};
+
+const reabrirAtendimento = async () => {
+	console.log(atendimento.value);
+	await atendimentoService.reabrirSolicitacao(atendimento.value.idAtendimento, atendimento.value.textoObservacao);
+	await buscarAtendimentos();
+	toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Atendimento reaberto', life: 3000 });
+	atendimentoDialog.value = false;
+};
+
+const encerrarAtendimento = async () => {
+	console.log(atendimento.value.idAtendimento);
+	await atendimentoService.encerrarSolicitacao({ idAtendimento: atendimento.value.idAtendimento });
+	await buscarAtendimentos();
+	toast.add({ severity: 'success', summary: 'Sucesso', detail: 'Atendimento encerrado', life: 3000 });
+	atendimentoDialog.value = false;
 };
 
 const confirmaDeletarAtendimento = (editarAtendimento) => {
@@ -199,7 +221,7 @@ const initFilters = () => {
 				<Toolbar class="mb-4">
 					<template v-slot:start>
 						<div class="my-2">
-							<Button label="Novo" v-if="perfil === 'CLIENTE'" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
+							<Button label="Novo" v-if="perfil.includes('CLIENTE')" icon="pi pi-plus" class="p-button-raised p-button-primary mr-2" @click="openNew" />
 							<!-- <Button label="Excluir" icon="pi pi-trash" class="p-button-raised p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedAtendimentos || !selectedAtendimentos.length" /> -->
 						</div>
 					</template>
@@ -287,7 +309,7 @@ const initFilters = () => {
 								class="p-button-rounded p-button-raised p-button-help mr-2"
 								v-if="perfil.includes('ATENDENTE') || (perfil.includes('SUPERVISOR_QUALIDADE') && atendimento.atendente !== null)"
 								@click="confirmAssumirAtendimento(slotProps.data)" />
-							<Button icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmaDeletarAtendimento(slotProps.data)" />
+							<Button v-if="perfil.includes('CLIENTE')" icon="pi pi-trash" class="p-button-rounded p-button-raised p-button-danger" @click="confirmaDeletarAtendimento(slotProps.data)" />
 						</template>
 					</Column>
 				</DataTable>
@@ -295,7 +317,7 @@ const initFilters = () => {
 				<Dialog v-model:visible="atendimentoDialog" :style="{ width: '500px' }" header="Atendimento" :modal="true" class="p-fluid">
 					<div class="field">
 						<label for="assunto">Assunto</label>
-						<InputText id="assunto" v-model.trim="atendimento.assunto" required="true" autofocus :disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento === null" :class="{ 'p-invalid': submitted && !atendimento.assunto }" />
+						<InputText id="assunto" v-model.trim="atendimento.assunto" required="true" autofocus :disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento !== null" :class="{ 'p-invalid': submitted && !atendimento.assunto }" />
 						<small class="p-invalid" v-if="submitted && !atendimento.assunto">Assunto é obrigatório.</small>
 					</div>
 					<div class="field">
@@ -318,7 +340,7 @@ const initFilters = () => {
 							optionValue="idMotivo"
 							placeholder="Escolha um Departamento"
 							required="true"
-							:disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento === null"
+							:disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento !== null"
 							autofocus
 							:class="{ 'p-invalid': submitted && !atendimento.motivo }" />
 
@@ -344,7 +366,7 @@ const initFilters = () => {
 							required="true"
 							rows="3"
 							cols="20"
-							:disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento === null"
+							:disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento !== null"
 							:class="{ 'p-invalid': submitted && !atendimento.detalhamentoSolicitacao }" />
 						<small class="p-invalid" v-if="submitted && !atendimento.detalhamentoSolicitacao">Descrição é obrigatória.</small>
 					</div>
@@ -356,13 +378,27 @@ const initFilters = () => {
 							required="false"
 							rows="3"
 							cols="20"
-							:disabled="!atendimento.atendente || perfil === 'CLIENTE' || perfil === 'ADMINISTRADOR'"
+							:disabled="!atendimento.atendente || perfil.includes('CLIENTE') || perfil.includes('ADMINISTRADOR')"
 							:class="{ 'p-invalid': submitted && !atendimento.detalhamentoEmpresa }" />
 						<small class="p-invalid" v-if="submitted && !atendimento.detalhamentoEmpresa">Descrição é obrigatória.</small>
 					</div>
+					<div class="field" v-if="atendimento.idAtendimento && atendimento.statusAndamento === 'FECHADO'">
+						<label for="reabrir">Justificativa da Reabertura</label>
+						<Textarea
+							id="reabrir"
+							v-model="atendimento.textoObservacao"
+							required="false"
+							rows="3"
+							cols="20"
+							:disabled="!atendimento.atendente || !perfil.includes('CLIENTE') || perfil.includes('ADMINISTRADOR')"
+							:class="{ 'p-invalid': submitted && !atendimento.textoObservacao }" />
+						<small class="p-invalid" v-if="submitted && !atendimento.textoObservacao">Descrição é obrigatória.</small>
+					</div>
 					<template #footer>
 						<Button label="Voltar" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
-						<Button label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarAtendimento" />
+						<Button v-if="atendimento.statusAndamento === 'FECHADO' && perfil.includes('CLIENTE')" label="Reabrir" icon="pi pi-flag" class="p-button-raised p-button-warning" @click="reabrirAtendimento" />
+						<Button v-if="atendimento.statusAndamento === 'REABERTO'" label="Encerrar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="encerrarAtendimento" />
+						<Button v-if="atendimento.statusAndamento !== 'FECHADO' && atendimento.statusAndamento !== 'REABERTO'" label="Salvar" icon="pi pi-check" class="p-button-raised p-button-primary" @click="salvarAtendimento" />
 					</template>
 				</Dialog>
 
@@ -370,8 +406,8 @@ const initFilters = () => {
 					<div class="flex align-items-center justify-content-center">
 						<i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
 						<span v-if="atendimento"
-							>Tem certeza que deseja excluir o Atendimento n. <b>{{ atendimento.protocolo }}</b
-							>?</span
+							>Tem certeza que deseja excluir o atendimento "<b>{{ atendimento.protocolo }}</b
+							>"?</span
 						>
 					</div>
 					<template #footer>
