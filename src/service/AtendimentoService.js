@@ -8,7 +8,7 @@ export default class AtendimentoService {
 	}
 
 	async buscarAtendimentos() {
-		return fetch(`http://localhost:8080/api/atendimento/listar/filtrado/1/1`, {
+		return fetch(`http://localhost:8080/api/atendimento/listar/todos`, {
 			method: 'GET'
 		})
 			.then((res) => res.json())
@@ -33,6 +33,24 @@ export default class AtendimentoService {
 			if (res.status === 400) {
 				throw new Error('Erro inesperado');
 			} else {
+				res.json();
+			}
+		} catch (err) {
+			return console.log(err);
+		}
+	}
+
+	async assumirAtendimento(data) {
+		try {
+			const res = await fetch('http://localhost:8080/api/atendimento/atendente/assumir', {
+				method: 'PUT',
+				body: JSON.stringify(data),
+				headers: { 'Content-type': 'application/json' }
+			});
+			if (res.status === 400) {
+				throw new Error('Erro inesperado 1');
+			}
+			if (res.status === 200) {
 				res.json();
 			}
 		} catch (err) {
