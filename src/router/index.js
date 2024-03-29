@@ -1,9 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
 
-const token = localStorage.getItem('token');
-const isAuth = localStorage.getItem('isAuthenticated');
-
 const router = createRouter({
 	history: createWebHashHistory(),
 	routes: [
@@ -21,18 +18,6 @@ const router = createRouter({
 			path: '/auth/login',
 			name: 'login',
 			component: () => import('@/views/auth/Login.vue')
-			// beforeEnter: async (_to, _from, next) => {
-			// 	console.log(token);
-			// 	console.log(isAuth);
-			// 	if (token === null || isAuth === false) {
-			// 		localStorage.setItem('isAuthenticated', false);
-			// 		// localStorage.setItem(perfil, false);
-			// 		next();
-			// 	} else if (token !== null || isAuth === true) {
-			// 		localStorage.setItem('isAuthenticated', true);
-			// 		next('/home');
-			// 	}
-			// }
 		},
 		{
 			path: '/auth/access',
@@ -273,15 +258,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	const token = localStorage.getItem('token');
 	const isAuth = localStorage.getItem('isAuthenticated');
+	const idCliente = localStorage.getItem('idCliente');
 	console.log(token);
 	console.log(isAuth);
 	if (to.path === '/auth/login') {
 		if (token === null || isAuth === false) {
-			// localStorage.setItem('isAuthenticated', false);
-			// localStorage.setItem(perfil, false);
+			console.log('Entrou aqui');
 			next();
 		} else if (token !== null || isAuth === true) {
-			// localStorage.setItem('isAuthenticated', true);
+			console.log('Entrou aqui 2');
 			next('/home');
 		}
 	} else if (
@@ -293,12 +278,17 @@ router.beforeEach((to, from, next) => {
 		to.path.startsWith('/departamento') ||
 		to.path.startsWith('/motivo')
 	) {
-		if (token !== null || isAuth === true) {
+		if (isAuth && (token !== null || idCliente !== null)) {
+			console.log('Entrou aqui 3');
 			next();
-		} else if (token === null || isAuth === false) {
-			next('/auth/login');
+		}
+		if (token === null || !isAuth) {
+			console.log('Entrou aqui 4');
+			next({ path: '/auth/login' });
+			// next();
 		}
 	} else {
+		console.log('Entrou aqui 5');
 		next();
 	}
 });
