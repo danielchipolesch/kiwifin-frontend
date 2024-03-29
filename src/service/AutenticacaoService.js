@@ -1,5 +1,5 @@
 import VueJwtDecode from 'vue-jwt-decode';
-import { useRouter } from 'vue-router';
+import router from '@/router/index';
 
 export default class AutenticacaoService {
 	async getHeaders() {
@@ -12,58 +12,53 @@ export default class AutenticacaoService {
 	}
 
 	async autenticarColaborador(data) {
-		try {
-			const response = await fetch('http://localhost:8080/api/autenticacao/colaborador/login', {
-				method: 'POST',
-				body: JSON.stringify(data),
-				headers: { 'Content-type': 'application/json; charset=UTF-8' },
-				mode: 'cors'
-			});
-			if (response.status === 400) {
-				return localStorage.setItem('isAuthenticated', false);
-			}
-			if (response.status === 200) {
-				// return response.json();
-				const { token } = await response.json();
-				const decodedToken = await VueJwtDecode.decode(token);
-				localStorage.setItem('token', token);
-				localStorage.setItem('isAuthenticated', true);
-				localStorage.setItem('perfil', decodedToken.perfil);
-				console.log(decodedToken);
-				return true;
-			} else {
-				// const { token } = response.json();
-				// localStorage.setItem('token', token);
-				// return token;
-			}
-		} catch (error) {
-			console.log(error);
+		const response = await fetch('http://localhost:8080/api/autenticacao/colaborador/login', {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: { 'Content-type': 'application/json; charset=UTF-8' },
+			mode: 'cors'
+		});
+		if (response.status === 400) {
+			return localStorage.setItem('isAuthenticated', false);
+		}
+		if (response.status === 200) {
+			const { token } = await response.json();
+			const decodedToken = await VueJwtDecode.decode(token);
+			localStorage.setItem('token', token);
+			localStorage.setItem('isAuthenticated', true);
+			localStorage.setItem('perfil', decodedToken.perfil);
+			// await router.push({ path: '/home' });
+			// return true;
+		} else {
+			// const { token } = response.json();
+			// localStorage.setItem('token', token);
+			// return token;
 		}
 	}
 
 	async autenticarCliente(data) {
-		try {
-			const response = await fetch('http://localhost:8080/api/autenticacao/cliente/login', {
-				method: 'POST',
-				body: JSON.stringify(data),
-				headers: { 'Content-type': 'application/json; charset=UTF-8' },
-				mode: 'cors'
-			});
-			if (response.status === 400) {
-				throw new Error('Erro inesperado');
-			}
-			if (response.status === 200) {
-				console.log(await response.json());
-				localStorage.setItem('isAuthenticated', true);
-				// localStorage.setItem('perfil', 'CLIENTE');
-			} else {
-				response.body;
-				const { token } = response.json();
-				localStorage.setItem('token', token);
-				return token;
-			}
-		} catch (error) {
-			console.log(error);
+		const response = await fetch('http://localhost:8080/api/autenticacao/cliente/login', {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: { 'Content-type': 'application/json; charset=UTF-8' },
+			mode: 'cors'
+		});
+		if (response.status === 400) {
+			throw new Error('Erro inesperado');
+		}
+		if (response.status === 200) {
+			const { idCliente } = await response.json();
+			localStorage.setItem('isAuthenticated', true);
+			localStorage.setItem('perfil', 'CLIENTE');
+			localStorage.setItem('idCliente', idCliente);
+			localStorage.setItem('token', null);
+			// router.push({ path: '/home' });
+			// return true;
+		} else {
+			// response.body;
+			// const { token } = response.json();
+			// localStorage.setItem('token', token);
+			// return token;
 		}
 	}
 
@@ -76,6 +71,6 @@ export default class AutenticacaoService {
 	}
 
 	logout = () => {
-		localStorage.removeItem('token');
+		localStorage.clear();
 	};
 }
