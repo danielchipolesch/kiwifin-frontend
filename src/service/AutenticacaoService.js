@@ -28,7 +28,7 @@ export default class AutenticacaoService {
 			localStorage.setItem('isAuthenticated', true);
 			localStorage.setItem('perfil', decodedToken.perfil);
 			// await router.push({ path: '/home' });
-			// return true;
+			return true;
 		} else {
 			// const { token } = response.json();
 			// localStorage.setItem('token', token);
@@ -53,7 +53,7 @@ export default class AutenticacaoService {
 			localStorage.setItem('idCliente', idCliente);
 			localStorage.setItem('token', null);
 			// router.push({ path: '/home' });
-			// return true;
+			return true;
 		} else {
 			// response.body;
 			// const { token } = response.json();
