@@ -301,20 +301,20 @@ const initFilters = () => {
 							{{ slotProps.data.protocolo }}
 						</template>
 					</Column>
-					<Column field="prazo" header="Prazo" :sortable="true" headerStyle="width:10%; min-width:10rem;">
+					<Column field="dataCriacao" header="Data de Criação" :sortable="true" headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
-							<span class="p-column-title">Prazo</span>
+							<span class="p-column-title">Data de Criação</span>
 							<!-- <Rating :modelValue="slotProps.data.prazo" :readonly="true" :cancel="false" /> -->
-							{{ slotProps.data.prazo }}
+							{{ moment(slotProps.data.dataProtocolo).format('DD/MM/YYYY') }}
 						</template>
 					</Column>
-					<Column field="conclusao" header="Conclusão" :sortable="true" headerStyle="width:10%; min-width:10rem;">
+					<!-- <Column field="conclusao" header="Conclusão" :sortable="true" headerStyle="width:10%; min-width:10rem;">
 						<template #body="slotProps">
 							<span class="p-column-title">Conclusão</span>
 							<Tag class="mr-2" v-if="slotProps.data.conclusao === 'Concluído'" icon="pi pi-check" severity="primary" :value="slotProps.data.conclusao"></Tag>
 							<Tag class="mr-2" v-if="slotProps.data.conclusao === 'Não Concluído'" icon="pi pi-times" severity="warning" :value="slotProps.data.conclusao"></Tag>
 						</template>
-					</Column>
+					</Column> -->
 					<Column headerStyle="width:14%; min-width:10rem;">
 						<template #body="slotProps">
 							<Button icon="pi pi-file-pdf" class="p-button-rounded p-button-raised p-button-secondary mr-2" @click="gerarPdf(slotProps.data)" />
@@ -333,7 +333,7 @@ const initFilters = () => {
 				<Dialog v-model:visible="atendimentoDialog" :style="{ width: '500px' }" header="Atendimento" :modal="true" class="p-fluid">
 					<div class="field">
 						<label for="assunto">Assunto</label>
-						<InputText id="assunto" v-model.trim="atendimento.assunto" required="true" autofocus :disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento !== null" :class="{ 'p-invalid': submitted && !atendimento.assunto }" />
+						<InputText id="assunto" v-model.trim="atendimento.assunto" required="true" autofocus :disabled="perfil !== 'CLIENTE' && atendimento.idAtendimento !== null" :class="{ 'p-invalid': submitted && !atendimento.assunto }" />
 						<small class="p-invalid" v-if="submitted && !atendimento.assunto">Assunto é obrigatório.</small>
 					</div>
 					<div class="field">
@@ -356,7 +356,7 @@ const initFilters = () => {
 							optionValue="idMotivo"
 							placeholder="Escolha um Departamento"
 							required="true"
-							:disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento !== null"
+							:disabled="perfil !== 'CLIENTE' && atendimento.idAtendimento !== null"
 							autofocus
 							:class="{ 'p-invalid': submitted && !atendimento.motivo }" />
 
@@ -382,7 +382,7 @@ const initFilters = () => {
 							required="true"
 							rows="3"
 							cols="20"
-							:disabled="perfil !== 'CLIENTE' || atendimento.idAtendimento !== null"
+							:disabled="perfil !== 'CLIENTE' && atendimento.idAtendimento !== null"
 							:class="{ 'p-invalid': submitted && !atendimento.detalhamentoSolicitacao }" />
 						<small class="p-invalid" v-if="submitted && !atendimento.detalhamentoSolicitacao">Descrição é obrigatória.</small>
 					</div>
